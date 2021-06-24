@@ -46,14 +46,17 @@
                 max-width: 30ch;
                 text-align: center;
             }
+           
             .form-group{
+                position: relative;
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
                 align-items: center;
                 &>*{
                     height: 50px;
-                    width: 300px;
+                    width: 280px;
+                    color: gray;
                 }
                 & > *:nth-child(1){
                     border-top-left-radius: 25px ;
@@ -63,6 +66,14 @@
                     border-top-right-radius: 25px ;
                     border-bottom-right-radius: 25px ;
                 }
+            }
+            button{
+                background-color: #f58936;
+                border :0;
+                outline: 0;
+                color: white !important;
+                text-transform: uppercase;
+                width: 150px !important;
             }
         
         }
@@ -75,7 +86,6 @@
         }
 
     }
-    
     #sec2{
         background-color: blanchedalmond;
     }

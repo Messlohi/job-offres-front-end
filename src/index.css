@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 15%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  position: relative;
+  font-family: 'Quicksand',sans-serif;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.6em;
+}

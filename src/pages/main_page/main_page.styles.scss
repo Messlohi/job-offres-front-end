@@ -1,4 +1,88 @@
-.classs{
-    background-color: aqua;
-    color: brown;
+.form-control {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #e1e1e1;
+    outline: none;
+    box-shadow: none;
+    color: #555;
+    font-size: 14px;
+    height: auto;
+    padding: 15px 12px;
+    transition: all .2s cubic-bezier(0,0,.58,1) 0s;
+}
+
+.section_container{
+  
+    section{
+        width: 100vw;
+        height: 80vh
+
+    }
+    #sec1::before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        background: center  no-repeat
+        url('https://bricom.ma/wp-content/uploads/2021/04/bricolage-2.jpg');
+       background-size: auto 115%;
+        position :absolute;
+        top: 0;
+    }
+    #sec1{
+        position: relative;
+        .content{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            color: white;
+            h1{
+                font-size: 3rem;
+                max-width: 30ch;
+                text-align: center;
+            }
+            .form-group{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                &>*{
+                    height: 50px;
+                    width: 300px;
+                }
+                & > *:nth-child(1){
+                    border-top-left-radius: 25px ;
+                    border-bottom-left-radius: 25px ;
+                }
+                & > *:last-child{
+                    border-top-right-radius: 25px ;
+                    border-bottom-right-radius: 25px ;
+                }
+            }
+        
+        }
+        .shalow_bg{
+            background-color: rgba(0, 0, 0, 0.75);
+            height: 100%;
+            width: 100%;
+            position :absolute;
+            top: 0;
+        }
+
+    }
+    
+    #sec2{
+        background-color: blanchedalmond;
+    }
+    #sec3{
+        background-color: blue;
+    }
+    #sec4{
+        background-color: rebeccapurple;
+    }
 }

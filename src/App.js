@@ -10,7 +10,7 @@ function App() {
     return ( 
         <div>
             <Header/>
-            <div className="container">
+            <div className="container  body-content content-wrapper">
                 {/* <MainPage/> */}
                 {/* <OffreCard offre={offre}/> */}
                 <OffresPage/>

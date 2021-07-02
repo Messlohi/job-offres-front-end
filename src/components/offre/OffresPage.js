@@ -12,8 +12,12 @@ function OffresPage(props) {
     // console.log(offres);
     return (
         <div>
-            {offres.map(offre=> <OffreCard offre={offre}/>)}
-       
+            <div>
+                <button className="btn btn-primary">Créer un offre</button>
+            </div>
+            <div>
+                 {offres.map(offre=> <div className="offre-container" key={offre.idService}><OffreCard offre={offre}/></div>)}
+            </div>
         </div>
     )
 }

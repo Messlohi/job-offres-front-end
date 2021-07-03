@@ -21,8 +21,12 @@ code {
 }
 
 .container {
+<<<<<<< HEAD
   margin: 0 15%;
 
+=======
+  /* margin: 0 15%; */
+>>>>>>> 9f5bc89a460dcca4da9fdae1688050448c83a0b4
 }
 
 h1, h2, h3, h4, h5, h6 {

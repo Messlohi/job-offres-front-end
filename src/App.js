@@ -1,15 +1,17 @@
 import './App.css';
-
 import Header from './components/header/header.component';
-import MainPage from './pages/main_page/main_page.component';
-
+import Create_offre from './components/offre/Create_offre';
+import OffresPage from './components/offre/OffresPage';
 
 function App() {
     return ( 
         <div>
             <Header/>
-            <MainPage/>
-
+            <div className="container  body-content content-wrapper">
+                {/* <MainPage/> */}
+                 <OffresPage/> 
+               {/* <Create_offre/>*/}
+            </div>
         </div>
     );
 }

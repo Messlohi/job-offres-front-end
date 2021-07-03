@@ -5,7 +5,7 @@ import './main_button.styles.scss'
 
 const MainButton = ({text,...otherProps}) => {
     return(
-        <button className="btn" {...otherProps} >{text}</button>
+        <button className="btn btn-orange" {...otherProps} >{text}</button>
     )
 }
 

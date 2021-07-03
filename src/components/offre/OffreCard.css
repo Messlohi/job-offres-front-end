@@ -1,0 +1,33 @@
+.offre-container{
+     
+ }
+.OffreCard{
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.081125);
+    max-width: 99%; 
+    border-radius:5px;
+    transition: all 0.253s ease; 
+}
+.OffreCard:hover{
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    max-width: 100%; 
+}
+.OffreCard .fas{
+    width:20px;
+    padding:3px; 
+    margin-right: 3px;
+}
+
+.OffreCard .fas{
+    width:20px;
+    padding:2px; 
+}
+
+.OffreCard .img-side {
+    max-width:400px;
+
+}
+.OffreCard .img-side .cardImg{
+    max-height:200px;
+
+}
+ 

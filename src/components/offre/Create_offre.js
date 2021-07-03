@@ -15,7 +15,7 @@ function Create_offre(props) {
         let nam = event.target.name;
         let val = event.target.value;
         setOffre({...offre, [nam] : val});	
-        console.log(offre);	 
+       // console.log(offre);	 
     }
     function onFileChangeHandler (e){
         e.preventDefault(); 

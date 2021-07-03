@@ -77,7 +77,6 @@ function Create_offre(props) {
                     <div className="col-md-8 col-lg-4 px-0"> 
                         <select  value={offre.categorie}  onChange={myChangeHandler} name="categorie" className="form-control">
                             {categories.map((c)=> <option key={c.idCateg} value={c.idCateg} >{c.nomCateg||"Categorie"}</option>)}
-                           
                         </select>
                     </div>
                 </div> 
@@ -95,9 +94,4 @@ function Create_offre(props) {
     )
 }
 export default Create_offre;
-
-/*   private String nom;
-   private String prix; 
-   private String descri;  
-   private String address; 
-   private String[] imgs;*/
+ 

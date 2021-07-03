@@ -4,11 +4,12 @@ import img from '../../assets/plombier.jpg'
 function OffreCard(props) {			  	//must start with an upper case letter
     //const [color,setColor]=useState("black");
     console.log(props.offre);
-    const {idService,nom,categorie,creator,prix,address,descri,imgLink}=props.offre; 
+    const {idService,nom,categorie,creator,prix,address,descri,imgs}=props.offre; 
+    console.log(props.offre.imgs? props.offre.imgs[0]:"dd");
      return (
         <div className="d-flex border m-2 OffreCard " key={props.key}> 
             <div className="img-side bg-light d-flex align-items-center">
-                <img className="cardImg img img-responsive w-100  justi" src={img} alt="card Img"/>
+                <img className="cardImg img img-responsive w-100  justi" src={imgs? imgs[0]:img} alt="card Img"/>
             </div>
             <div className="card-body  p-3">
                 <h2 className="h2 pt-0 ">{nom}</h2>

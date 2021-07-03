@@ -2,9 +2,7 @@ import React from 'react'
 
 import workers from '../../assets/workers.png'
 
-import {MenuItem} from '../../components/menu-item/menu-item.component'
-
-
+import MenuItem from '../../components/MenuItem/MenuItem.component'
 import './main_page.styles.scss'
 
 
@@ -16,7 +14,7 @@ class  MainPage extends React.Component {
             sections : [
                 {
                   title: 'hats',
-                  imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+                  imageUrl: 'aluminuim.jpg',
                   id: 1,
                   linkUrl: 'shop/hats'
                 },
@@ -35,14 +33,12 @@ class  MainPage extends React.Component {
                 {
                   title: 'womens',
                   imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-                  size: 'large',
                   id: 4,
                   linkUrl: 'shop/womens'
                 },
                 {
                   title: 'mens',
                   imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-                  size: 'large',
                   id: 5,
                   linkUrl: 'shop/mens'
                 }
@@ -52,11 +48,11 @@ class  MainPage extends React.Component {
     
     render(){
         return (
-            <div className="section_container">
+            <div className="section_container ">
                 <section id="sec1"> 
                     <div  className="main_bg"></div>
                     <div className="shalow_bg"></div>
-                    <div className="content">
+                    <div className="content ">
                         <h1 className="main_title">Trouvez un maalem pour réaliser vos travaux</h1>
                         <div className="form-group">
                             <input  id="input_search" className="form-control-main" placeholder="Que cherchez vous…" />
@@ -111,7 +107,9 @@ class  MainPage extends React.Component {
                 <section id="sec3">
                     {
                         this.state.sections.map(({id,...otherOptions})=> {
-                            <MenuItem key={id}  {...otherOptions}/>
+                            return(
+                            <MenuItem key={id} {...otherOptions}/>
+                            )
                         })
                     }
                 </section>

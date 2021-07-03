@@ -1,16 +1,14 @@
 .menu-item {
   position: relative;
-    min-width: 30%;
-    height: 240px;
+    height: 200px;
     flex: 1 1 auto;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
+    border: 5px solid #f7f7f7;
     margin: 0 7.5px 15px;
     overflow: hidden;
-
-   
 
     &.large {
       height: 350px;

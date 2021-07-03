@@ -69,7 +69,7 @@ class SignIn extends React.Component
                     required/>
                 
                     <div className="buttons">
-                        <MainButton type="submit" text="Sign in" ></MainButton>
+                        <MainButton  onClick={()=> auth.signOut()}  text="Sign in" ></MainButton>
                         <MainButton onClick={this.handelSignInWithGoogle} text="Sign in with Google" isGoogleSignIn />
                             
             </div>

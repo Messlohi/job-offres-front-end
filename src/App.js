@@ -6,16 +6,18 @@ import Create_offre from './components/offre/Create_offre';
 import OffresPage from './components/offre/OffresPage'; 
 import MainPage from './pages/main_page/main_page.component';
 import SingInSingUp from './pages/signin_singup/signin_singup';
+import {updateUser} from './api/api.users'
 
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
 
 
 function App() {
 
-    const {currentUser ,setCurrentUser} = useState({});
+    const [currentUser ,setCurrentUser] = useState({});
 
+    var userAuthGlobal = null;
     useEffect( ()=>{
-        this.unsubscribeFromAuth =  auth.onAuthStateChanged(async userAuth => {
+      auth.onAuthStateChanged(async userAuth => {
             if(userAuth){
               const userRef = await  createUserProfileDocument(userAuth)
               userRef.onSnapshot(snap => {
@@ -26,12 +28,13 @@ function App() {
               })
             }else {
               setCurrentUser(userAuth)
+
             }
-            
+            console.log(userAuth)
           })
 
 
-    },[currentUser])
+    },[userAuthGlobal])
 
 
     return ( 

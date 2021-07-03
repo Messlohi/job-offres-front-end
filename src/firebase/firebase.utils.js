@@ -2,6 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
 
+import {addUser} from '../api/api.users';
+
 
   var firebaseConfig = {
     apiKey: "AIzaSyDBlryWaGzw8hpY-27lwdtx0GEV2xXNI3s",
@@ -32,7 +34,27 @@ export const createUserProfileDocument = async(userAuth, additionalData) => {
     const userRef = firestore.doc(`users/${userAuth.uid}`)
     const snapShot = await userRef.get();
     if (!snapShot.exists) {
+
         const { displayName, email } = userAuth;
+        //Adding user to SQL database
+        const user = {
+            "id":"0",
+            "email": email,
+            "nomComplet": displayName,
+            "idFirebase": userAuth.uid,
+            "tel": "-",
+            "adress": "-",
+            "isConnected": true,
+            "imgPath" : "-"
+    
+    }
+
+     addUser(user).then(snap => {
+         console.log(snap)
+         
+    }).catch(err => alert(err))
+
+    
         const createdAt = new Date();
         try {
             await userRef.set({

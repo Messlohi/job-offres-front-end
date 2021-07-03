@@ -1,19 +1,16 @@
 import './App.css';
-import OffreCard from './components/offre/OffreCard';
-import OffresPage from './components/offre/OffresPage';
 import Header from './components/header/header.component';
-import MainPage from './pages/main_page/main_page.component';
+import Create_offre from './components/offre/Create_offre';
 
 
 function App() {
-    const offre={id:1,titre:"Plombier Fes",category:"catego",prix:'55 dh/m',desc:"desc",addres:"addresse",img:"./assets/logo.png"};
     return ( 
         <div>
             <Header/>
             <div className="container  body-content content-wrapper">
                 {/* <MainPage/> */}
-                {/* <OffreCard offre={offre}/> */}
-                <OffresPage/>
+                {/* <OffresPage/> */}
+                <Create_offre/>
             </div>
         </div>
     );

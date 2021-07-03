@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import './OffreCard.css'
 import img from '../../assets/plombier.jpg'
 function OffreCard(props) {			  	//must start with an upper case letter

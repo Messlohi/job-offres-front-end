@@ -23,11 +23,12 @@
 }
 
 .OffreCard .img-side {
-    max-width:400px;
+    width:250px;
 
 }
 .OffreCard .img-side .cardImg{
-    max-height:200px;
-
+    height: 100%; 
+    width: 100%; 
+    object-fit: contain; 
 }
  

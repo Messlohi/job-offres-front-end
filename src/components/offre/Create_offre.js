@@ -15,10 +15,10 @@ function Create_offre(props) {
        });
     }, []);
     function myChangeHandler (event) {
-        let nam = event.target.name;
+        let name = event.target.name;
         let val = event.target.value;
-        setOffre({...offre, [nam] : val});	
-        console.log(offre);	 
+        setOffre({...offre, [name] : val});	
+       // console.log(offre);	 
     }
     function onFileChangeHandler (e){
         e.preventDefault(); 
@@ -76,7 +76,7 @@ function Create_offre(props) {
                     </div>
                 </div>  
                 <div className="form-group">
-                    <label className="control-label text-left col-md-2">descri</label>  
+                    <label className="control-label text-left col-md-2">Categorie</label>  
                     <div className="col-md-8 col-lg-4 px-0"> 
                         <select  value={offre.categorie}  onChange={myChangeHandler} name="categorie" className="form-control">
                             {categories.map((c)=> <option key={c.idCateg} value={c.idCateg} >{c.nomCateg||"Categorie"}</option>)}

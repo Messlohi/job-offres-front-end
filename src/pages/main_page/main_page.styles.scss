@@ -19,7 +19,6 @@ $with_column :500px;
     section{
         width: 100vw;
         height: 80vh
-
     }
     #sec1::before{
         content: "";
@@ -111,7 +110,10 @@ $with_column :500px;
        }
     }
     #sec3{
-        background-color: blue;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
     #sec4{
         background-color: rebeccapurple;

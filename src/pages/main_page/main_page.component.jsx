@@ -1,10 +1,54 @@
 import React from 'react'
 
 import workers from '../../assets/workers.png'
+
+import {MenuItem} from '../../components/menu-item/menu-item.component'
+
+
 import './main_page.styles.scss'
 
 
 class  MainPage extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            sections : [
+                {
+                  title: 'hats',
+                  imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
+                  id: 1,
+                  linkUrl: 'shop/hats'
+                },
+                {
+                  title: 'jackets',
+                  imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+                  id: 2,
+                  linkUrl: 'shop/jackets'
+                },
+                {
+                  title: 'sneakers',
+                  imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+                  id: 3,
+                  linkUrl: 'shop/sneakers'
+                },
+                {
+                  title: 'womens',
+                  imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+                  size: 'large',
+                  id: 4,
+                  linkUrl: 'shop/womens'
+                },
+                {
+                  title: 'mens',
+                  imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+                  size: 'large',
+                  id: 5,
+                  linkUrl: 'shop/mens'
+                }
+              ]
+        }
+    }
     
     render(){
         return (
@@ -15,8 +59,8 @@ class  MainPage extends React.Component {
                     <div className="content">
                         <h1 className="main_title">Trouvez un maalem pour réaliser vos travaux</h1>
                         <div className="form-group">
-                            <input  id="input_search" className="form-control" placeholder="Que cherchez vous…" />
-                            <select  name="cat_id" id="slect_categ" className="form-control" data-placeholder="Sélectionner une catégorie">
+                            <input  id="input_search" className="form-control-main" placeholder="Que cherchez vous…" />
+                            <select  name="cat_id" id="slect_categ" className="form-control-main" data-placeholder="Sélectionner une catégorie">
                                 <option label="Sélectionner une catégorie" value="">Sélectionner une catégorie</option>
                                 <option value="1580" data-parent-level="1">Bâtiment</option>
                                 <option value="1589" data-parent-level="1">Camera de surveillance</option>
@@ -38,7 +82,7 @@ class  MainPage extends React.Component {
                                 <option value="1587" data-parent-level="1">Tapisserie</option>
                                 <option value="1595" data-parent-level="1">Teindre des carrosseries</option>
                             </select>
-                            <select id="select_lieu" className="form-control">
+                            <select id="select_lieu" className="form-control-main">
                                 <option label="Sélectionnez le Lieu" value="">Sélectionnez le Lieu</option>
                                 <option value="1601" data-parent-level="1">agadir</option>
                                 <option value="1780" data-parent-level="1">bni melal</option>
@@ -64,7 +108,13 @@ class  MainPage extends React.Component {
                     </div>
                     </div>
                 </section>
-                <section id="sec3">C</section>
+                <section id="sec3">
+                    {
+                        this.state.sections.map(({id,...otherOptions})=> {
+                            <MenuItem key={id}  {...otherOptions}/>
+                        })
+                    }
+                </section>
                 <section id="sec4">D</section>
             </div>
     

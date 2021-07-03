@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
+
 import { getCategories } from '../../api/api.categories';
+
 import './OffreCard.css'
+
 function Create_offre(props) {	
     const [offre,setOffre]=useState({idService:0,nom:"",descri:"",categorie:"",address:"",prix:"",imgs:[]});
     const [categories,setcategories]=useState([]); 

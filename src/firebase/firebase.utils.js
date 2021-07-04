@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore';
 import 'firebase/auth'
+import 'firebase/database'
 
 import {addUser} from '../api/api.users';
 
@@ -20,6 +21,18 @@ import {addUser} from '../api/api.users';
 
 export const auth = firebase.auth()
 export const firestore = firebase.firestore();
+export const database = firebase.database();
+
+
+export const getCurrenUser = async () => {
+    let uid=  ""
+    await auth.onAuthStateChanged(async (userAuth) => {
+        if(userAuth) {
+            uid = userAuth.uid;
+        }
+    })
+     return uid;
+  } 
 
 
 const provider = new firebase.auth.GoogleAuthProvider();

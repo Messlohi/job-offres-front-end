@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useState ,useContext } from 'react'; 
 import { getCategories } from '../../api/api.categories';
+import { UserContext } from '../../providers/UserContext';
 
-import './OffreCard.css'
-
+  
 function Create_offre(props) {	
     const [offre,setOffre]=useState({idService:0,nom:"",descri:"",categorie:"",address:"",prix:"",imgs:[]});
     const [categories,setcategories]=useState([]); 
+    const user = useContext(UserContext)
+
     useEffect(() => {
+        console.log(user)
        getCategories().then((result) => {
            setcategories(result.data);
        }).catch((err) => {

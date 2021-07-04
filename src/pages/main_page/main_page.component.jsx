@@ -14,7 +14,7 @@ class  MainPage extends React.Component {
             sections : [
                 {
                   title: 'hats',
-                  imageUrl: 'aluminuim.jpg',
+                  imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
                   id: 1,
                   linkUrl: 'shop/hats'
                 },
@@ -105,6 +105,8 @@ class  MainPage extends React.Component {
                     </div>
                 </section>
                 <section id="sec3">
+                    <h1 className="section-title">Rrechercher par Métier</h1>
+                    <div className="section-content">
                     {
                         this.state.sections.map(({id,...otherOptions})=> {
                             return(
@@ -112,6 +114,8 @@ class  MainPage extends React.Component {
                             )
                         })
                     }
+                    </div>
+                 
                 </section>
                 <section id="sec4">D</section>
             </div>

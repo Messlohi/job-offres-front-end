@@ -51,7 +51,6 @@ export const createUserProfileDocument = async(userAuth, additionalData) => {
 
      addUser(user).then(snap => {
          console.log(snap)
-         
     }).catch(err => alert(err))
 
     

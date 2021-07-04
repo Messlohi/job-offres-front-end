@@ -10,6 +10,7 @@ function OffresPage(props) {
     const [selectedCateg,setselectedCateg]=useState(0);
   
     useEffect(() => {
+        fetchCategos();
         if(selectedCateg===0){
             fetchOffres();
         }else{

@@ -30,13 +30,12 @@ function App() {
             }else {
               setCurrentUser(userAuth)
 
-            }
-            console.log(userAuth)
+            } 
           })
 
 
     },[userAuthGlobal])
-
+    console.log(currentUser);
 
     return ( 
         <div>
@@ -46,12 +45,10 @@ function App() {
                 <Route path='/offres'exact component={OffresPage} />
                 <Route path='/signin'exact component={SingInSingUp} />
                 <Route path='/signout'exact component={SingInSingUp} />
-                <Route path='/offres/:id' exact component={Create_offre} />
                 <Route path='/offres/add' exact  component={Create_offre} />
+                <Route path='/offres/:id' exact component={OffreDetails} />
             </div>
         </div>
     );
-}
-
-
+} 
 export default App;

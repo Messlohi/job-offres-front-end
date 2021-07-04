@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import './OffreCard.css'
+import React, { useEffect, useState } from 'react'; 
+import './offrePage.css'
 import {getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';
 import { getCategories } from '../../api/api.categories';
 import { Link } from 'react-router-dom'; 
-function OffresPage(props) {	
+function OffresPage({match}) {	
     const [offres,setOffres]=useState([]);
     const [categories,setcategories]=useState([]); 
-    const [selectedCateg,setselectedCateg]=useState(0);
+    const [selectedCateg,setselectedCateg]=useState(match.params.);
   
     useEffect(() => {
         fetchCategos();
@@ -50,13 +50,13 @@ function OffresPage(props) {
                                 <form method="get" id="search_cats_w" action="https://bricom.ma/search-results/">
                                     <div id="collapseOne" className="panel--collapse collapse- in" role="tabpanel" aria-labelledby="headingOne">
                                         <div className="panel-body categories">
-                                            <ul className="list-group m-0 my-2">  
-                                                <li className={`pl-2 list-group-item btn btn-outline-primary ${ selectedCateg===0? "active" : ""}`} 
+                                            <ul className="list-group m-0 my-2 categories-list">  
+                                                <li className={`pl-2 list-group-item btn btnn-outline-primary ${ selectedCateg===0? "picked" : ""}`} 
                                                     onClick={()=>setselectedCateg(0)}>Tous 
                                                 </li>
                                                 {categories.map((c)=> 
                                                     <li key={c.idCateg}  
-                                                            className={`pl-2 list-group-item btn btn-outline-primary ${c.idCateg === selectedCateg? "active" : ""}`}
+                                                            className={`pl-2 list-group-item btn btnn-outline-primary ${c.idCateg === selectedCateg? "picked" : ""}`}
                                                             onClick={()=>setselectedCateg(c.idCateg)}
                                                             >{c.nomCateg }
                                                     </li>) 
@@ -69,10 +69,13 @@ function OffresPage(props) {
                         </div>
                     </div>
                 </div>
-            <div className="col-md-9 col-lg-9 col-xs-12 white-bg my-1 border rounded">
+            <div className="col-md-9 col-lg-9 col-xs-12 white-bg my-1 border rounded py-2">
                 <div>
-                    <div>
-                        <Link to="/offres/add" className="btn btn-primary">Créer un offre</Link>
+                    <div style={{"display": "flex","justify-content": "space-between"}}> 
+                        <h3 class="">Annonces</h3>
+                        <div>
+                            <Link to="/offres/add" className="btn btn-orange">Créer un offre</Link>
+                        </div>
                     </div>
                     <div>
                         {offres.map(offre=> <div className="offre-container" key={offre.idService}><OffreCard offre={offre}/></div>)}

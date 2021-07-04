@@ -4,10 +4,14 @@ export async function getOffres(){
     const response=await axios.get('http://localhost:8080/offres/');
     return response;
 }
+export async function getOffreById(id){
+    const response=await axios.get('http://localhost:8080/offres/'+id);
+    return response;
+}
 export async function addOffre(offre){
     const response=await axios.post('http://localhost:8080/offres/',offre,
         {
-            headers: { 'content-type': 'multipart/form-data'}
+            headers: { 'content-type': 'multipart/form-data' }
         }
     );
     return response;

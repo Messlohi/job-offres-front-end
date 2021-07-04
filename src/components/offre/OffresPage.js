@@ -3,15 +3,12 @@ import './OffreCard.css'
 import {getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';
 import { getCategories } from '../../api/api.categories';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 function OffresPage(props) {	
     const [offres,setOffres]=useState([]);
     const [categories,setcategories]=useState([]); 
-    const [selectedCateg,setselectedCateg]=useState(0); 
-    useEffect(() => {
-        fetchCategos();
-        fetchOffres();
-    }, []) 
+    const [selectedCateg,setselectedCateg]=useState(0);
+  
     useEffect(() => {
         if(selectedCateg===0){
             fetchOffres();

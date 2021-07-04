@@ -1,5 +1,5 @@
 import React  from 'react';
-import './OffreCard.css'
+import './OffreCard.css';
 import img from '../../assets/plombier.jpg'
 function OffreCard(props) {			  	//must start with an upper case letter
     //const [color,setColor]=useState("black");

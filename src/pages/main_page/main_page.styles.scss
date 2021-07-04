@@ -1,4 +1,8 @@
-.form-control {
+$base-color :#f58936;
+$with_column :500px;
+
+
+.form-control-main {
     background-color: #fff;
     background-image: none;
     border: 1px solid #e1e1e1;
@@ -10,13 +14,11 @@
     padding: 15px 12px;
     transition: all .2s cubic-bezier(0,0,.58,1) 0s;
 }
-
 .section_container{
   
     section{
         width: 100vw;
         height: 80vh
-
     }
     #sec1::before{
         content: "";
@@ -24,7 +26,7 @@
         height: 100%;
         background: center  no-repeat
         url('https://bricom.ma/wp-content/uploads/2021/04/bricolage-2.jpg');
-       background-size: auto 115%;
+        background-size: auto 115%;
         position :absolute;
         top: 0;
     }
@@ -68,7 +70,7 @@
                 }
             }
             button{
-                background-color: #f58936;
+                background-color: $base-color;
                 border :0;
                 outline: 0;
                 color: white !important;
@@ -87,10 +89,34 @@
 
     }
     #sec2{
-        background-color: blanchedalmond;
+        height: 100% !important;
+        background-color: #f7f7f7;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        h1{
+            text-align: center;
+            font-weight: bold;
+        }
+       .content{
+           display: flex;
+           justify-content: center;
+           .text_intro{
+               h2{
+                  color: $base-color;
+               }
+           }
+         
+
+       }
     }
     #sec3{
-        background-color: blue;
+        width: 100%;
+        padding-left: 10%;
+        padding-right: 10%;
+        background-color: white;
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 auto;
     }
     #sec4{
         background-color: rebeccapurple;

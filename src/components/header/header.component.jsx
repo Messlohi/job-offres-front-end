@@ -2,7 +2,7 @@ import {React} from 'react'
 
 import  Logo  from '../../assets/logo.png'
 import MainButton from '../buttons/main_button/main_button.component'
-
+import { Link } from 'react-router-dom'
 import './header.styles.scss'
 
 
@@ -11,8 +11,13 @@ const Header = () => {
         <div className="header">
             <div className="head-header">
                 <ul className="ul_signIn container"> 
+                <Link to="/signin" className="link_sign">
                     <li>Se Connecter</li>
+                </Link>
+                <Link to="/signout" className="link_sign">
                     <li>s'inscrire</li>
+                </Link>
+                   
                 </ul>
             </div>
             <div className="bottom-header container">

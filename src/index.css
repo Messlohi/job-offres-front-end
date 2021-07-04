@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 
 code {
@@ -18,9 +19,6 @@ code {
   padding: 0;
 }
 
-.container {
-  /* margin: 0 15%; */
-}
 
 h1, h2, h3, h4, h5, h6 {
   position: relative;

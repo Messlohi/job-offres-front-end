@@ -1,0 +1,42 @@
+ 
+  .star-wrapper {
+    width:280px;
+    direction: rtl; 
+  }
+  .star-wrapper span  {
+    font-size: 2em;
+    color: rgb(214, 214, 214);
+    text-decoration: none;
+    transition: all 0.5s;
+    margin: 4px;
+    padding:5px;
+    cursor: pointer;
+  }
+  .star-wrapper span:hover {
+    color: gold;
+    transform: scale(1.3);
+  }
+  .s1:hover ~ span {
+    color: gold;
+  }
+  .s2:hover ~ span {
+    color: gold;
+  }
+  .s3:hover ~ span {
+    color: gold;
+  }
+  .s4:hover ~ span {
+    color: gold;
+  }
+  .s5:hover ~ span {
+    color: gold;
+  }  
+  .star-wrapper .selected{
+    color: gold; 
+  }
+  .wraper {
+    position: absolute;
+    bottom: 30px;
+    right: 50px;
+  }
+  

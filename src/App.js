@@ -7,15 +7,12 @@ import OffresPage from './components/offre/OffresPage';
 import OffreDetails from './components/offre/OffreDetails'; 
 import MainPage from './pages/main_page/main_page.component';
 import SingInSingUp from './pages/signin_singup/signin_singup';
-import {updateUser} from './api/api.users'
+// import {updateUser} from './api/api.users'
 
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
-
-
 function App() {
 
     const [currentUser ,setCurrentUser] = useState({});
-
     var userAuthGlobal = null;
     useEffect( ()=>{
       auth.onAuthStateChanged(async userAuth => {
@@ -29,14 +26,10 @@ function App() {
               })
             }else {
               setCurrentUser(userAuth)
-
             } 
-          })
-
-
+          }) 
     },[userAuthGlobal])
-    console.log(currentUser);
-
+    // console.log(currentUser);
     return ( 
         <div>
             <Header/>
@@ -45,9 +38,9 @@ function App() {
                 <Route path='/offres'exact component={OffresPage} />
                 <Route path='/signin'exact component={SingInSingUp} />
                 <Route path='/signout'exact component={SingInSingUp} />
-                <Route path='/offres/add' exact  component={Create_offre} />
-                <Route path='/offres/:id' exact component={OffreDetails} />
-            </div>
+                <Route  path='/offres/details/:id' component={OffreDetails} />
+                <Route exact path='/offres/add'component={Create_offre} />
+             </div>
         </div>
     );
 } 

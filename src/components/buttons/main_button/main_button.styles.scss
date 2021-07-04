@@ -1,10 +1,23 @@
+ 
 .btn-orange {
+    font-family: Tahoma;
+    letter-spacing:0.112rem ; 
+    font-size: 16px;  
     height: 40px;
     min-width: 100px;
     outline: none;
     border: none;
-    color: rgb(221, 196, 196);
-    background-color: #f58936;
-    text-transform: uppercase;
+    color: white;
+    background-color: #f58936; 
     cursor: pointer;
+    transition: all 0.21s ease;
+
+    &:hover {
+        opacity: 0.8;
+        
+      }
+      &:active {
+        opacity: 0.6;
+        border: solid 1px orange;        
+      }
 }

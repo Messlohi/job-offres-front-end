@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 function OffresPage({match}) {	
     const [offres,setOffres]=useState([]);
     const [categories,setcategories]=useState([]); 
-    const [selectedCateg,setselectedCateg]=useState(match.params.);
+    const [selectedCateg,setselectedCateg]=useState(0);
   
     useEffect(() => {
         fetchCategos();

@@ -36,16 +36,20 @@ class SingUp extends React.Component {
             const {user} = await auth.createUserWithEmailAndPassword(email,password).catch(err => {
                 alert(err)
             })
-            await createUserProfileDocument(user,{displayName,addr,tel})
-            this.setState({
-                displayName : '', 
-                email :'',
-                password :'',
-                confirmPassword:'',
-                addr:'',
-                tel :''
-            })
-            this.props.history.push('/');
+            if(user != null){
+                const addition = {displayName,addr,tel}
+                await createUserProfileDocument(user,addition)
+                this.setState({
+                    displayName : '', 
+                    email :'',
+                    password :'',
+                    confirmPassword:'',
+                    addr:'',
+                    tel :''
+                })
+                this.props.history.push('/');
+            }
+           
         } catch (error) {
             console.log(error)
             

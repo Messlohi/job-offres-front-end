@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import './MenuItem.styles.scss'
 
 const MenuItem = (({category,history,match}) =>{
-    console.log(category);
     return (
    <div onClick={()=> window.location="http://localhost:3000/offres?id="+category.idCateg} className={`menu-item`}>
        <div className="background-image" 

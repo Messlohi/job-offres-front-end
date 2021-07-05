@@ -93,13 +93,13 @@ function  MainPage(props) {
                     </div>
                 </section>
                 <section id="sec2">
-                <h1>Bienvenue chez bricom</h1>
+                <h1>Bienvenue chez BRICOLE</h1>
                     <div className="content container"> 
                     <div className="text_intro">
-                        <h2>Qu'est-ce que bricom?</h2>
-                        <p>Bricom est une plate-forme qui offre un espace aux artisans de toutes formes et professions pour afficher leurs services, ainsi qu’au client pour trouver un artisan via Bricom en un clic sans se soucier de la navigation et de la recherche.
+                        <h2>Qu'est-ce que BRICOLE?</h2>
+                        <p>BRICOLE est une plate-forme qui offre un espace aux artisans de toutes formes et professions pour afficher leurs services, ainsi qu’au client pour trouver un artisan via Bricom en un clic sans se soucier de la navigation et de la recherche.
                         <br/> <br/>
-                        Pour référence, le site Bricom est 100% gratuit et sans aucune commission, ni de la part de l’artisan, ni du client.
+                        Pour référence, le site BRICOLE est 100% gratuit et sans aucune commission, ni de la part de l’artisan, ni du client.
                         </p>
                     </div>
                     <div className="img_intro">

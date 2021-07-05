@@ -9,13 +9,13 @@ export default function Nav(props) {
   const history = useHistory(); 
   const user=useContext(UserContext); 
   return (
-    <nav className="px-2 bg-warning">
+    <nav className="px-2 text-white" style={{"background":"#c1981b","color":"white"}}>
       <img className="logo" src={logo} alt="dd" />
       <ul className="nav-links">
         <li className="nav-link">
           <Link
             to="/" 
-            className={selected === "/" ? "selected" : "unselect"}
+            className={""+selected === "/" ? "selected" : "unselect"}
           >
             Deployements
           </Link>

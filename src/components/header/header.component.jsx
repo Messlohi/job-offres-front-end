@@ -8,17 +8,17 @@ import './header.styles.scss'
 
 const Header = () => {
     return(
-        <div className="header">
-            <nav class="navbar navbar-light bg-light justify-content-between">
-                <a class="navbar-brand">Navbar</a>
-                <div class="form-inline">
-                    <ul className="list-unstyled d-flex"> 
+        <div className="header" >
+            <nav class="navbar  navbar-light   justify-content-between" style={{"background":"#f58936"}}>
+                <a href="/" className="navbar-brand text-white"><i className="fas fa-tools"></i> BRICOLE</a>
+                <div className="form-inline">
+                    <ul className="list-unstyled d-flex navItems" > 
                             <li>  
-                                <Link to="/signin" className=" nav-link">Se Connecter</Link>
+                                <Link to="/signin" className=" nav-link text-white">Se Connecter</Link>
                             </li> 
                         
                             <li>
-                                <Link to="/signout" className=" nav-link">s'inscrire</Link>
+                                <Link to="/signout" className=" nav-link text-white">s'inscrire</Link>
                             </li>
                     
                     </ul>

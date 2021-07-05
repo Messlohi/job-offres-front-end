@@ -37,7 +37,7 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
     return ( 
         <div>
           <UserProvider>
-            <Nav/>
+            <Header/>
             <Route path='/' exact component={MainPage} />
             <div className="container  body-content content-wrapper"> 
             <Switch>

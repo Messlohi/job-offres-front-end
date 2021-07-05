@@ -1,14 +1,14 @@
 
 .header {
-    .head-header {
-        background-color: black;
+    .navItems{ 
         color:white;
+        font-family: arial,sans-serif;
         display: flex;
         justify-content: flex-end;
         align-content: center;
-        padding-top: 5px;
+        padding-top: 9px;
         height: 30px;
-        font-size: 0.8rem;
+        font-size: 1rem;
         .ul_signIn{
             list-style: none;
             align-self: center;

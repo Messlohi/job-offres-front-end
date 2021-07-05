@@ -1,5 +1,5 @@
 import React, { useEffect, useState ,useContext} from 'react'; 
-import { UserContext } from '../../providers/UserContext';
+import { UserContext } from '../../firebase/Provider';
 import './offrePage.css'
 import {getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';

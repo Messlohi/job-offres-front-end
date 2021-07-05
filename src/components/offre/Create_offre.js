@@ -1,6 +1,6 @@
 import React, { useEffect, useState ,useContext } from 'react'; 
 import { getCategories } from '../../api/api.categories';
-import { UserContext } from '../../providers/UserContext';
+import { UserContext } from '../../firebase/Provider';
 
   
 function Create_offre(props) {	

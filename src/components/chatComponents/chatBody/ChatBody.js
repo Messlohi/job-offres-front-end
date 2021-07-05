@@ -1,16 +1,19 @@
-import React, { Component } from "react";
+import React, { useContext } from "react";
 import "./chatBody.css";
 import ChatList from "../chatList/ChatList";
 import ChatContent from "../chatContent/ChatContent";
 import UserProfile from "../userProfile/UserProfile";
 
-export default class ChatBody extends Component {
-  render() {
+const ChatBody = ()=>  {
+ 
+
     return (
       <div className="main__chatbody">
-        <ChatList />
+        <ChatList  />
         <ChatContent />
       </div>
     );
-  }
+
 }
+
+export default ChatBody;

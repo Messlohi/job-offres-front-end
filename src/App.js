@@ -8,8 +8,7 @@ import OffresPage from './components/offre/OffresPage';
 import MainPage from './pages/main_page/main_page.component';
 import SingInSingUp from './pages/signin_singup/signin_singup';
 import ChatPage from './pages/chat_page/ChatPage';
-
-import { UserContext } from './providers/UserContext';
+import  UserProvider  from  './firebase/Provider';
 
 
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
@@ -40,21 +39,20 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
 
     return ( 
         <div>
+          <UserProvider>
             <Header/>
             <Route path='/' exact component={MainPage} />
             <div className="container  body-content content-wrapper"> 
-            <UserContext.Provider >
             <Switch>
                 <Route path='/offres'exact component={OffresPage} />
-                <Route path='/chat' exact component={currentUser==null?SingInSingUp:ChatPage}/>
+                <Route path='/chat' exact component={ChatPage}/>
                 <Route path='/signin'exact component={SingInSingUp} />
                 <Route path='/signout'exact component={SingInSingUp} />
                 <Route path='/offres/:id' exact component={Create_offre} />
                 <Route path='/offres/add' exact  component={Create_offre} />
             </Switch>
-            </UserContext.Provider >
-               
             </div>
+            </UserProvider>
         </div>
     );
 }

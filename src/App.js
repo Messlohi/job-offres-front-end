@@ -10,13 +10,11 @@ import MainPage from './pages/main_page/main_page.component';
 import SingInSingUp from './pages/signin_singup/signin_singup';
 import ChatPage from './pages/chat_page/ChatPage';
 import  UserProvider  from  './firebase/Provider';
+import  Nav  from  './components/nav/Nav';
 
 
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
-
-
  function App() {
-
     const [currentUser ,setCurrentUser] = useState({});
     var userAuthGlobal = null;
     useEffect( ()=>{
@@ -36,12 +34,10 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
           })
 
     },[userAuthGlobal])
-
-
     return ( 
         <div>
           <UserProvider>
-            <Header/>
+            <Nav/>
             <Route path='/' exact component={MainPage} />
             <div className="container  body-content content-wrapper"> 
             <Switch>

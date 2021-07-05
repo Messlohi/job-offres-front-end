@@ -42,8 +42,7 @@ function Create_offre({props,match}) {
             return;
         }
         imgs.push(file.name)
-        setOffre({...offre, imgs : imgs});	
-        
+        setOffre({...offre, imgs : imgs});	 
         const formData = new FormData();
         formData.append('nom', offre.nom);
         formData.append('descri', offre.descri);
@@ -53,41 +52,30 @@ function Create_offre({props,match}) {
         formData.append('categorie', offre.categorie); 
         formData.append('creatorID', user.currentUser.id);
         formData.append('file', file);
-        if(id===0){
+        if(!id){ 
+            console.log("updating",formData);
             fetch('http://localhost:8080/offres', {
                 method: 'post',
                 body:formData 
             }).then(res => {
                 if(res.ok) {
+                    console.log("adding ",id ,"formdata", formData);
                     console.log(res.data);
                     alert("File uploaded successfully.");
                     window.location="/offres";
                 } 
             }); 
-        }else{
-            
-            console.log("updating");
+        }else{ 
+            // console.log("updating",formData);
             formData.append('idService', offre.idService);
             updateOffre(formData)
                 .then(r=>{
                     console.log(r);
+                    console.log("updating ",id ,"formdata", formData);
                     alert("modifié");
-                    window.location="/offres";
+                    // window.location="/offres";
                 })
-                .catch(err=>console.log(err))
-            // fetch('http://localhost:8080/offres'+id, {
-            //     method: 'patch',
-            //     body:formData 
-            // }).then(res => {
-            //     if(res.ok) {
-            //         console.log(res.data);
-            //         alert("File uploaded successfully.");
-            //         window.location="/offres";
-            //     } 
-                
-            //     console.log("updating");
-            // })
-            // .catch(err=>console.log(err));
+                .catch(err=>console.log(err)) 
         }
     }
     return ( 

@@ -1,60 +1,64 @@
-import React from 'react'
-
-import workers from '../../assets/workers.png'
-
+import React, { useEffect, useState } from 'react'
+import { getCategories } from '../../api/api.categories'
+import workers from '../../assets/landing2.png'
 import MenuItem from '../../components/MenuItem/MenuItem.component'
 import './main_page.styles.scss'
 
-
-class  MainPage extends React.Component {
-
-    constructor(props){
-        super(props);
-        this.state = {
-            sections : [
-                {
-                  title: 'Bâtiment',
-                  imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                  id: 1,
-                  linkUrl: 'shop/hats'
-                },
-                {
-                  title: 'Camera de surveillance',
-                  imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
-                  id: 2,
-                  linkUrl: 'shop/jackets'
-                },
-                {
-                  title: 'Électricien',
-                  imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
-                  id: 3,
-                  linkUrl: 'shop/sneakers'
-                },
-                {
-                  title: 'électroménagers',
-                  imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-                  id: 4,
-                  linkUrl: 'shop/womens'
-                },
-                {
-                  title: 'mens',
-                  imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-                  id: 5,
-                  linkUrl: 'shop/mens'
-                }
-              ]
-        }
-    }
-    
-    render(){
+function  MainPage(props) {
+    const [sections, setsections] = useState([])
+    useEffect(() => {
+        getCategories().then((result) => {
+            setsections(result.data);
+            }).catch((err) => {
+                alert(err)
+            });
+    }, [])
+    // constructor(props){
+    //     super(props);
+    //     this.state = {
+    //         sections : [
+    //             {
+    //               title: 'Bâtiment',
+    //               imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+    //               id: 1,
+    //               linkUrl: 'shop/hats'
+    //             },
+    //             {
+    //               title: 'Camera de surveillance',
+    //               imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
+    //               id: 2,
+    //               linkUrl: 'shop/jackets'
+    //             },
+    //             {
+    //               title: 'Électricien',
+    //               imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
+    //               id: 3,
+    //               linkUrl: 'shop/sneakers'
+    //             },
+    //             {
+    //               title: 'électroménagers',
+    //               imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+    //               id: 4,
+    //               linkUrl: 'shop/womens'
+    //             },
+    //             {
+    //               title: 'mens',
+    //               imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+    //               id: 5,
+    //               linkUrl: 'shop/mens'
+    //             }
+    //           ]
+    //     }
+    // }
+     
         return (
             <div className="section_container ">
                 <section id="sec1"> 
                     <div  className="main_bg"></div>
                     <div className="shalow_bg"></div>
                     <div className="content ">
-                        <h1 className="main_title">Trouvez un maalem pour réaliser vos travaux</h1>
-                        <div className="form-group">
+                        <h1 className="main_title">Trouvez un Maalem pour réaliser vos travaux</h1>
+                        <div className="form-group d-none">
                             <input  id="input_search" className="form-control-main" placeholder="Que cherchez vous…" />
                             <select  name="cat_id" id="slect_categ" className="form-control-main" data-placeholder="Sélectionner une catégorie">
                                 <option label="Sélectionner une catégorie" value="">Sélectionner une catégorie</option>
@@ -105,11 +109,11 @@ class  MainPage extends React.Component {
                 </section>
                 <section id="sec3">
                     <h1 className="section-title">Rrechercher par Métier</h1>
-                    <div className="section-content">
+                    <div className="section-content" style={{"position": "relative"}}>
                     {
-                        this.state.sections.map(({id,...otherOptions})=> {
+                        sections.map((category,i)=> {
                             return(
-                            <MenuItem key={id} {...otherOptions}/>
+                            <MenuItem key={category.idCateg} category={category}/>
                             )
                         })
                     }
@@ -122,8 +126,7 @@ class  MainPage extends React.Component {
     
     
         )
-
-    }
+ 
     
 }
 

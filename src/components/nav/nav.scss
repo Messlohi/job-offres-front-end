@@ -1,0 +1,38 @@
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
+  img {
+    max-width: 100px;
+    width: 100%;  
+  }
+  ul {
+    display: block;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    li {
+      margin-top: 15px;
+      margin-right: 20px;
+      &:last-child {
+        margin-right: 2px;
+      }
+      transition: all 0.3s ease;
+      &::after {
+        transition: all 0.3s ease;
+        content: "";
+        width: 0px;
+        height: 3px;
+        display: block;
+        margin-top: 5px;
+        background-color: #e5e5e5;
+      }
+      &:hover {
+        &:after {
+          width: 100%;
+        }
+      }
+    }
+  }
+} 

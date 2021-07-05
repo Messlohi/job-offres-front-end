@@ -1,20 +1,20 @@
-import React, { useEffect, useState ,useContext} from 'react'; 
-import { UserContext } from '../../providers/UserContext';
+import React, { useEffect, useState } from 'react'; 
+// import { UserContext } from '../../providers/UserContext';
 import './offrePage.css'
 import {deleteOffre, getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';
 import { getCategories } from '../../api/api.categories';
-import { Link } from 'react-router-dom'; 
+import { Link, useLocation } from 'react-router-dom'; 
 function OffresPage({match}) {	
     const [offres,setOffres]=useState([]);
-    const [categories,setcategories]=useState([]); 
-    const [selectedCateg,setselectedCateg]=useState(0);
-    const user = useContext(UserContext)
-  
-    useEffect(() => {
-        console.log(user)
+    const [categories,setcategories]=useState([]);  
+    const search = useLocation().search;
+    var idCateg = new URLSearchParams(search).get('id');
+    const [selectedCateg,setselectedCateg]=useState(idCateg? Number(idCateg):1000); 
+    // console.log(idCateg ,selectedCateg);
+    useEffect(() => { 
         fetchCategos();
-        if(selectedCateg===0){
+        if(selectedCateg===1000){
             fetchOffres();
         }else{
         getOffres()
@@ -22,7 +22,6 @@ function OffresPage({match}) {
                 setOffres(d.data.filter(e=> e.categorie.idCateg===selectedCateg));
             })
             .catch(e=> console.log(e));
-            
             }
     }, [selectedCateg]) 
     function fetchCategos() {
@@ -41,6 +40,10 @@ function OffresPage({match}) {
         var flag=window.confirm("voulez vous supprimer cette offre?");
         if(flag) deleteOffre(id).then(r=>setOffres(r.data))
     }
+    function handlCateg(id) {
+        idCateg=id;
+        setselectedCateg(id)
+    }
     return ( 
         <div className="row">
                 <div className="col-md-3 col-xs-12 my-1 ">
@@ -58,13 +61,13 @@ function OffresPage({match}) {
                                     <div id="collapseOne" className="panel--collapse collapse- in" role="tabpanel" aria-labelledby="headingOne">
                                         <div className="panel-body categories">
                                             <ul className="list-group m-0 my-2 categories-list">  
-                                                <li className={`pl-2 list-group-item btn btnn-outline-primary ${ selectedCateg===0? "picked" : ""}`} 
-                                                    onClick={()=>setselectedCateg(0)}>Tous 
+                                                <li className={`pl-2 list-group-item btn btnn-outline-primary ${ selectedCateg===1000? "picked" : ""}`} 
+                                                    onClick={()=>handlCateg(1000)}>Tous 
                                                 </li>
                                                 {categories.map((c)=> 
                                                     <li key={c.idCateg}  
-                                                            className={`pl-2 list-group-item btn btnn-outline-primary ${c.idCateg === selectedCateg? "picked" : ""}`}
-                                                            onClick={()=>setselectedCateg(c.idCateg)}
+                                                            className={`pl-2 list-group-item btn btnn-outline-primary ${c.idCateg == selectedCateg? "picked" : ""}`}
+                                                            onClick={()=>handlCateg(c.idCateg)}
                                                             >{c.nomCateg }
                                                     </li>) 
                                                 }

@@ -8,7 +8,7 @@ export async function getUsers(){
     return response;
 }
 export async function getUserById(id){
-    const response=await axios.get('http://localhost:8080/users?idFirebase='+id);
+    const response=await axios.get('http://localhost:8080/users/getuser?idFirebase='+id);
     return response;
 }
 export async function addUser(user){

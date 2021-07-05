@@ -18,7 +18,7 @@ $with_column :500px;
   
     section{
         width: 100vw;
-        height: 80vh
+        min-height: 80vh
     }
     #sec1::before{
         content: "";
@@ -80,7 +80,7 @@ $with_column :500px;
         
         }
         .shalow_bg{
-            background-color: rgba(0, 0, 0, 0.75);
+            background-color: rgba(0, 0, 0, 0.675);
             height: 100%;
             width: 100%;
             position :absolute;
@@ -127,5 +127,7 @@ $with_column :500px;
     }
     #sec4{
         background-color: rebeccapurple;
+        
+        min-height: 0vh
     }
 }

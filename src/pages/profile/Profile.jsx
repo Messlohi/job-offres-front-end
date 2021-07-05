@@ -2,6 +2,7 @@ import React ,{useState,useEffect,useContext, useRef} from 'react'
 
 import { firestore, storage } from '../../firebase/firebase.utils'
 import { UserContext } from '../../firebase/Provider';
+import { getUserById,updateUser } from '../../api/api.users';
 
 import './Profile.scss'
 
@@ -32,7 +33,7 @@ const CardInfo = ({onClickEdit,profileInfo}) =>
                     <h6 className="mb-0">Téléphone</h6>
                 </div>
                 <div className="col-sm-9 text-secondary">
-                    {profileInfo.tele}
+                    {profileInfo.tel}
                 </div>
             </div>
             <hr />
@@ -95,8 +96,8 @@ const EditCard = ({HandelOnChage,onClickSave,profileInfo})=> {
                         <h6 className="mb-0">Téléphone</h6>
                     </div>
                     <div className="col-sm-9 text-secondary">
-                        <input type="text" name="tele" className="form-control" 
-                         value={profileInfo.tele}
+                        <input type="text" name="tel" className="form-control" 
+                         value={profileInfo.tel}
                            onChange={HandelOnChage}
                     />
                     </div>
@@ -148,9 +149,25 @@ const refImg = useRef(null)
 
  useEffect(async () => {
      if(currentUser!=null){
-         const userRef = await firestore.doc(`users/${currentUser.id}`).get()
-         const userData = userRef.data()
-        setProfileInfo(userData)
+         //geting user data from fire base
+        //  const userRef = await firestore.doc(`users/${currentUser.id}`).get()
+        //  const userData = userRef.data()
+        //  console.log(userData)
+         //setProfileInfo(userData)
+         getUserById(currentUser.id).then(usera => {
+             let user = usera.data
+            let userFetched = {
+                displayName:user.nomComplet,
+                spec : user.specialite,
+                img : user.imgPath,
+                addr : user.adress,
+                tel : user.tel,
+                email : user.email,
+                idSQl : user.idUser
+            }
+            setProfileInfo(userFetched)
+         })
+     
      }
      return () => {
          
@@ -169,6 +186,7 @@ const getExtension = (filePath) => {
 
 const uploadImg=  (event) =>{
     if(event.target.files[0]!=null){
+        console.log("changed")
         setProfileInfo({ ...profileInfo,
             img:URL.createObjectURL(event.target.files[0])})
         var storageRef = storage.ref(); 
@@ -179,15 +197,37 @@ const uploadImg=  (event) =>{
             const {img , ...otherProps} = profileInfo;
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                     firestore.doc(`users/${currentUser.id}`).update({img:downloadURL,...otherProps})  
-              });
+                    const {displayName ,addr, img,tel ,spec,email,idSQl} = profileInfo;
+                    let user = {
+                        idUser:idSQl,
+                        nomComplet:displayName,
+                        idFirebase :currentUser.id,
+                        adress:addr,
+                        imgPath:downloadURL,
+                        specialite:spec,
+                        tel:tel,
+                        email:email,
+                    }
+                 updateUser(user).then()
+                });
         })
     }
 }
 const removeImg = () => {
     const {img , ...otherProps} = profileInfo;
     firestore.doc(`users/${currentUser.id}`).update({...otherProps})  
+    const {displayName ,addr,tel ,spec,email,idSQl} = profileInfo;
+    let user = {
+        idUser:idSQl,
+        nomComplet:displayName,
+        idFirebase :currentUser.id,
+        adress:addr,
+        specialite:spec,
+        tel:tel,
+        email:email,
+    }
+    updateUser(user)
     setProfileInfo(otherProps);
-
 }
 
 const onClickEdit  = (e) => {
@@ -198,7 +238,19 @@ const onClickEdit  = (e) => {
 
 const onClickSave =(e) =>{
      setEditButtonClicked(false);
-      firestore.doc(`users/${currentUser.id}`).update(profileInfo)  
+     const {displayName ,addr, img,tel ,spec,email,idSQl} = profileInfo;
+        let user = {
+            idUser:idSQl,
+            nomComplet:displayName,
+            idFirebase :currentUser.id,
+            imgPath:img,
+            adress:addr,
+            specialite:spec,
+            tel:tel,
+            email:email,
+        }
+     updateUser(user).then(snap => console.log(snap))
+     // firestore.doc(`users/${currentUser.id}`).update(profileInfo)  
     }
 
 
@@ -221,7 +273,8 @@ return(
                                 id="choseImg" hidden/>
                             <div className="mt-3">
                                 <h4>{profileInfo.displayName}</h4>
-                                <p className="text-secondary mb-1">{profileInfo.desc ? profileInfo.desc : "description"}</p>
+                                {/* <p className="text-secondary mb-1">{profileInfo.desc ? profileInfo.desc : "description"}</p> */}
+                                <br/>
                                 <button className="btn btn-outline-primary">Message</button>
                             </div>
                         </div>

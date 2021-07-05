@@ -47,7 +47,6 @@ class SingUp extends React.Component {
                     addr:'',
                     tel :''
                 })
-                this.props.history.push('/');
             }
            
         } catch (error) {

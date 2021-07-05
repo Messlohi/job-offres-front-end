@@ -15,8 +15,8 @@ export async function addUser(user){
     const response=await axios.post('http://localhost:8080/users/',user );
     return response;
 }
-export async function updateUser(id,user){
-    const response=await axios.post('http://localhost:8080/users/'+id,user);
+export async function updateUser(user){
+    const response=await axios.patch('http://localhost:8080/users/',user);
     return response;
 }
 export async function deleteUser(id){

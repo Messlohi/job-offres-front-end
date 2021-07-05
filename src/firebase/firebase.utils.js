@@ -44,25 +44,25 @@ const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 
 export const singInWithGoogle = () => auth.signInWithPopup(provider);
-const loadFormData = async (userAuth,addtion)=> {
 
+const loadFormData = async (userAuth,addtion)=> {
     const {email,uid } = userAuth;
     const {displayName, tel, addr} = addtion
     console.log(displayName)
     console.log(email)
     const formData = new FormData();
-    formData.append('idUser', "1");
+    formData.append('idUser', '1');
     formData.append('nomComplet', displayName);
     formData.append('email', email);
-    formData.append('password', "");
+    formData.append('password', '');
     formData.append('tel', tel); 
     formData.append('adress', addr); 
     formData.append('idFirebase', uid);
-    formData.append('specialite', "-");
-    formData.append('file', "Person");
+    formData.append('specialite', '-');
     console.log(formData)
     return formData;
 }
+
 
 export const createUserProfileDocument = async(userAuth, additionalData) => {
     if (!userAuth) return;
@@ -70,14 +70,12 @@ export const createUserProfileDocument = async(userAuth, additionalData) => {
     const snapShot = await userRef.get();
     if (!snapShot.exists) {
         const { email } = userAuth;
-     
         //Adding user to SQL database
         if(additionalData!= null ){
             let formData = await loadFormData(userAuth,additionalData);
             addUser(formData).then(snap => {
                 console.log(snap)
             }).catch(err => alert(err))
-    
             const createdAt = new Date();
             try {
                 await userRef.set({

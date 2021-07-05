@@ -26,7 +26,7 @@ function OffreDetails({match}) {
             .then(r=>setcomments(r.data))
             .catch(err=>console.log(err));
       },[])   
-    function sendRating() {
+    function sendRating() { 
         const rating={
             num: 10,
             points: rate,
@@ -36,7 +36,7 @@ function OffreDetails({match}) {
             user_rator:{idUser: 1,
                         email: user.email,
                         nomComplet: user.displayName,
-                        idFirebase: user.id,
+                        idFirebase: user.currentUser.id,
                         tel: "",
                         adress: "",
                         isConnected: true,

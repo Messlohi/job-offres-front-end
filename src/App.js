@@ -11,13 +11,11 @@ import SingInSingUp from './pages/signin_singup/signin_singup';
 import Profile from './pages/profile/Profile';
 import ChatPage from './pages/chat_page/ChatPage';
 import  UserProvider  from  './firebase/Provider';
+import  Nav  from  './components/nav/Nav';
 
 
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
-
-
  function App() {
-
     const [currentUser ,setCurrentUser] = useState({});
     var userAuthGlobal = null;
     useEffect( ()=>{
@@ -36,8 +34,6 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
             }
           })
     },[userAuthGlobal])
-
-
     return ( 
         <div>
           <UserProvider>

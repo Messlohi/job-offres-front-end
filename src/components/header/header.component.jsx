@@ -8,8 +8,23 @@ import './header.styles.scss'
 
 const Header = () => {
     return(
-        <div className="header">
-            <div className="head-header">
+        <div className="header" >
+            <nav class="navbar  navbar-light   justify-content-between" style={{"background":"#f58936"}}>
+                <a href="/" className="navbar-brand text-white"><i className="fas fa-tools"></i> BRICOLE</a>
+                <div className="form-inline">
+                    <ul className="list-unstyled d-flex navItems" > 
+                            <li>  
+                                <Link to="/signin" className=" nav-link text-white">Se Connecter</Link>
+                            </li> 
+                        
+                            <li>
+                                <Link to="/signout" className=" nav-link text-white">s'inscrire</Link>
+                            </li>
+                    
+                    </ul>
+                </div>
+            </nav>
+            {/* <div className="head-header">
                 <ul className="ul_signIn container"> 
                 <Link to="/signin" className="link_sign">
                     <li>Se Connecter</li>
@@ -23,7 +38,7 @@ const Header = () => {
             <div className="bottom-header container">
                 <img src ={Logo} alt="Logo" />
                 <MainButton text="+ Déposer Votre Anonce"/>
-            </div>
+            </div> */}
         </div>
     )
   

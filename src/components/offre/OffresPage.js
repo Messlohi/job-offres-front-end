@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react'; 
-// import { UserContext } from '../../providers/UserContext';
+import React, { useEffect, useState ,useContext} from 'react'; 
 import './offrePage.css'
 import {deleteOffre, getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';

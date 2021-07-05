@@ -8,6 +8,7 @@ import OffreDetails from './components/offre/OffreDetails';
 import OffresPage from './components/offre/OffresPage'; 
 import MainPage from './pages/main_page/main_page.component';
 import SingInSingUp from './pages/signin_singup/signin_singup';
+import Profile from './pages/profile/Profile';
 import ChatPage from './pages/chat_page/ChatPage';
 import  UserProvider  from  './firebase/Provider';
 import  Nav  from  './components/nav/Nav';
@@ -32,7 +33,6 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
 
             }
           })
-
     },[userAuthGlobal])
     return ( 
         <div>
@@ -43,6 +43,7 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
             <Switch>
                 <Route path='/offres'exact component={OffresPage} />
                 <Route path='/chat' exact component={ChatPage}/>
+                <Route path='/profile' exact component={Profile}/>
                 <Route path='/signin'exact component={SingInSingUp} />
                 <Route path='/signout'exact component={SingInSingUp} />
                 <Route  path='/offres/details/:id' component={OffreDetails} /> 

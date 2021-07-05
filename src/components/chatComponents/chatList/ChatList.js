@@ -2,53 +2,58 @@ import React, { useEffect , useContext,useState} from "react";
 import "./chatList.css";
 
 import ChatListItems from "./ChatListItems";
-import { firestore ,getCurrenUser,database } from "../../../firebase/firebase.utils";
+import { firestore ,database } from "../../../firebase/firebase.utils";
 import { UserContext } from "../../../firebase/Provider";
 
 
 
 
-const  ChatList =() =>  {
+const  ChatList =(props) =>  {
   const {currentUser} = useContext(UserContext)
   const  [allChatUsers, setAllChatUsers] = useState([]);
+  const [fertchIn,setFetchIn] = useState(false);
 
-
-
-  const getAllChatUser = async (uid,setAllChatUserss) => {
-    var allChatUsers = [];
-    await database.ref(`all_users/${uid}/chats`).once('value',async (snap)=> {
-      if(snap.exists()){
-        let tabUsersKeys = Object.keys(snap.val());
-       await tabUsersKeys.forEach(async (userKey,i,tab) => {
-          const userRef = firestore.doc(`users/${userKey}`)
-          const userObject = await userRef.get();
-          const user = userObject.data()
-           allChatUsers.push({
-            id : allChatUsers.length+1,
-            name : user.displayName,
-            active : true,
-            isOnline: false
-          })  
-        })
   
-      }
-      console.log(allChatUsers)
-      setAllChatUserss(allChatUsers)
-      return allChatUsers;
+
+
+const getAllChatUser =  (uid) => {
+    return new Promise(async (resolve,reject)=> {
+        var allChatUsers = [];
+        await database.ref(`all_users/${uid}/chats`).once('value',async (snap)=> {
+          if(snap.exists()){
+            let tabUsersKeys = Object.keys(snap.val());
+          await tabUsersKeys.forEach(async (userKey,i,tab) => {
+              const userRef = firestore.doc(`users/${userKey}`)
+              const userObject = await userRef.get();
+              const user = userObject.data()
+              allChatUsers.push({
+                id : allChatUsers.length+1,
+                name : user.displayName,
+                active : true,
+                isOnline: false
+              })  
+            })
+          }
+           resolve(allChatUsers);
+    })
+   
   
-     
   })
   
   }
   
-
-  
   useEffect(async () => {
     if(currentUser != null){
-        await getAllChatUser(currentUser.id,setAllChatUsers)
-        console.log(allChatUsers)
+    if(allChatUsers.length==0){
+      await getAllChatUser(currentUser.id).then(chart => {
+        setAllChatUsers(chart)
+        console.log(chart)
+        setFetchIn(true)
+    })
     }
-  }, [currentUser])
+   
+    }
+  }, [currentUser,fertchIn])
 
   
 
@@ -157,8 +162,7 @@ const  ChatList =() =>  {
         </div>
         <div className="chatlist__items">
           {console.log(allChatUsers.length)}
-          {
-          allChatUsers.map((item, index) => {
+          {allChatUsers.map((item, index) => {
             return (
               <ChatListItems
                 name={item.name}

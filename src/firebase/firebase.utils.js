@@ -43,7 +43,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 
 provider.setCustomParameters({ prompt: 'select_account' });
 
-export const singInWithGoogle = () => auth.signInWithPopup(provider);
+export const singInWithGoogle = async () => auth.signInWithPopup(provider);
 
 const loadFormData = async (userAuth,addtion)=> {
     const {email,uid } = userAuth;
@@ -59,12 +59,11 @@ const loadFormData = async (userAuth,addtion)=> {
     formData.append('adress', addr); 
     formData.append('idFirebase', uid);
     formData.append('specialite', '-');
-    console.log(formData)
     return formData;
 }
 
 
-export const createUserProfileDocument = async(userAuth, additionalData) => {
+export const createUserProfileDocument = async(userAuth, additionalData,history) => {
     if (!userAuth) return;
     const userRef = firestore.doc(`users/${userAuth.uid}`)
     const snapShot = await userRef.get();
@@ -83,11 +82,15 @@ export const createUserProfileDocument = async(userAuth, additionalData) => {
                     createdAt,
                     ...additionalData
                 })
+                if(history!=null)
+                history.push('/profile')
             } catch (error) {
                 window.alert("erreur in saving user " + error)
             }
         }
-    
+    }else {
+        if(history!=null)
+        history.push('/')
     }
     return userRef;
 }

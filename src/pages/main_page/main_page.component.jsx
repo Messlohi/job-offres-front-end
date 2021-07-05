@@ -50,7 +50,6 @@ function  MainPage(props) {
     //           ]
     //     }
     // }
-     
         return (
             <div className="section_container ">
                 <section id="sec1"> 
@@ -58,7 +57,7 @@ function  MainPage(props) {
                     <div className="shalow_bg"></div>
                     <div className="content ">
                         <h1 className="main_title">Trouvez un Maalem pour réaliser vos travaux</h1>
-                        <div className="form-group d-none">
+                        <div className="form-group ">
                             <input  id="input_search" className="form-control-main" placeholder="Que cherchez vous…" />
                             <select  name="cat_id" id="slect_categ" className="form-control-main" data-placeholder="Sélectionner une catégorie">
                                 <option label="Sélectionner une catégorie" value="">Sélectionner une catégorie</option>

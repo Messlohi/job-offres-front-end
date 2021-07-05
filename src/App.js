@@ -1,4 +1,4 @@
-import { Route,Switch } from 'react-router';
+import { Route,Switch ,Redirect } from 'react-router';
 import { useState ,useEffect} from 'react';
 import './App.css';
 import {React,useContext} from 'react'
@@ -15,13 +15,15 @@ import  Nav  from  './components/nav/Nav';
 
 
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
- function App() {
+ function App(props) {
     const [currentUser ,setCurrentUser] = useState({});
     var userAuthGlobal = null;
+    var unsubscribeFromAuth = null
+
     useEffect( ()=>{
-      auth.onAuthStateChanged(async userAuth => {
+      unsubscribeFromAuth= auth.onAuthStateChanged(async userAuth => {
             if(userAuth){
-              const userRef = await  createUserProfileDocument(userAuth)
+              const userRef = await  createUserProfileDocument(userAuth,{})
               userRef.onSnapshot(snap => {
                 setCurrentUser({currentUser :{
                     id : snap.id,
@@ -33,19 +35,22 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
 
             }
           })
+          return () => {
+            unsubscribeFromAuth();
+          }
     },[userAuthGlobal])
     return ( 
         <div>
           <UserProvider>
-            <Header/>
+            <Header currentUser={currentUser}/>
             <Route path='/' exact component={MainPage} />
             <div className="container  body-content content-wrapper"> 
             <Switch>
                 <Route path='/offres'exact component={OffresPage} />
                 <Route path='/chat' exact component={ChatPage}/>
-                <Route path='/profile' exact component={Profile}/>
-                <Route path='/signin'exact component={SingInSingUp} />
-                <Route path='/signout'exact component={SingInSingUp} />
+                <Route path='/profile' exact component={currentUser==null?MainPage:Profile}/>
+                {currentUser?  <Redirect to='/'/> :<Route path='/signin'exact component={SingInSingUp} />}
+                {currentUser?  <Redirect to='/'/> :<Route path='/signout'exact component={SingInSingUp} />}
                 <Route  path='/offres/details/:id' component={OffreDetails} /> 
                 <Route exact path='/offres/add'component={Create_offre} />
                 <Route  path='/offres/edit/:id'component={Create_offre} /> 

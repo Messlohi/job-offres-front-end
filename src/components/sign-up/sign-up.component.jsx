@@ -38,7 +38,7 @@ class SingUp extends React.Component {
             })
             if(user != null){
                 const addition = {displayName,addr,tel}
-                await createUserProfileDocument(user,addition)
+                await createUserProfileDocument(user,addition,this.props.history)
                 this.setState({
                     displayName : '', 
                     email :'',

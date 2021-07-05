@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 
 import FormInput from '../../components/form-input/form-input.component'
 import MainButton from '../../components/buttons/main_button/main_button.component'
@@ -13,7 +14,6 @@ class SignIn extends React.Component
 {
     constructor(props){
         super(props); 
-
 
         this.state = {
             email :'',
@@ -37,8 +37,11 @@ class SignIn extends React.Component
        
     }
 
-    handelSignInWithGoogle = event => {
-        singInWithGoogle()
+    handelSignInWithGoogle = async (event) => {
+        singInWithGoogle().then(snap=> {
+            this.props.history.push('/')
+        })
+      
     }
 
     handelChange = event => {
@@ -80,4 +83,4 @@ class SignIn extends React.Component
     }
 }
 
-export default SignIn;
+export default withRouter(SignIn);

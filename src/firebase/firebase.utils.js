@@ -44,14 +44,14 @@ const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 
 export const singInWithGoogle = () => auth.signInWithPopup(provider);
-
 const loadFormData = async (userAuth,addtion)=> {
-    console.log(userAuth.uid)
-    console.log(addtion)
-    const { displayName, email,uid } = userAuth;
-    const { tel, addr} = addtion
+
+    const {email,uid } = userAuth;
+    const {displayName, tel, addr} = addtion
+    console.log(displayName)
+    console.log(email)
     const formData = new FormData();
-    formData.append('idUser', 1);
+    formData.append('idUser', "1");
     formData.append('nomComplet', displayName);
     formData.append('email', email);
     formData.append('password', "");
@@ -59,7 +59,8 @@ const loadFormData = async (userAuth,addtion)=> {
     formData.append('adress', addr); 
     formData.append('idFirebase', uid);
     formData.append('specialite', "-");
-    formData.append('file', Person);
+    formData.append('file', "Person");
+    console.log(formData)
     return formData;
 }
 
@@ -68,29 +69,24 @@ export const createUserProfileDocument = async(userAuth, additionalData) => {
     const userRef = firestore.doc(`users/${userAuth.uid}`)
     const snapShot = await userRef.get();
     if (!snapShot.exists) {
-        const { displayName, email } = userAuth;
- 
+        const { email } = userAuth;
+     
         //Adding user to SQL database
         if(additionalData!= null ){
-          
             let formData = await loadFormData(userAuth,additionalData);
-            console.log(formData)
-            if(formData!={}){
-                addUser(formData).then(snap => {
-                    console.log(snap)
-                }).catch(err => alert(err))
-        
-                const createdAt = new Date();
-                try {
-                    await userRef.set({
-                        displayName,
-                        email,
-                        createdAt,
-                        ...additionalData
-                    })
-                } catch (error) {
-                    window.alert("erreur in saving user " + error)
-                }
+            addUser(formData).then(snap => {
+                console.log(snap)
+            }).catch(err => alert(err))
+    
+            const createdAt = new Date();
+            try {
+                await userRef.set({
+                    email,
+                    createdAt,
+                    ...additionalData
+                })
+            } catch (error) {
+                window.alert("erreur in saving user " + error)
             }
         }
     

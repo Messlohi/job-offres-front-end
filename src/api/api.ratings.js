@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-export async function getRatings(){
-    const response=await axios.get('http://localhost:8080/ratings/');
+export async function getRatings(id){
+    const response=await axios.get('http://localhost:8080/ratings/byOfferId/'+id);
     return response;
 }
 export async function getRatingById(id){

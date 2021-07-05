@@ -54,4 +54,10 @@
 .offre-details{
    
    animation:pop-in 0.5s;
-}
+} 
+
+.trait-offre .fas{
+    font-size:22px; 
+    margin:2px 8px;
+    cursor: pointer;
+ }

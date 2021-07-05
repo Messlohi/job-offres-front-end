@@ -52,10 +52,9 @@ class SignIn extends React.Component
     render(){
         return(
             <div className='sign-in'>
-            <h2 className="title">I already have an account</h2>
-            <span>Sing in with your email and password</span>                
+            <h2 className="title">J'ai déja un compte</h2>
+            <span>Se Connecter avec votre email et mot de passe</span>                
                 <form action="" onSubmit={this.handelSubmit}>
-                    <label>Email</label>
                     <FormInput type="email" name="email"
                     handelChange={this.handelChange}
                     label="email"
@@ -69,9 +68,9 @@ class SignIn extends React.Component
                     required/>
                 
                     <div className="buttons">
-                        <MainButton  onClick={()=> auth.signOut()}  text="Sign in" ></MainButton>
-                        <MainButton onClick={this.handelSignInWithGoogle} text="Sign in with Google" isGoogleSignIn />
-                            
+                        <MainButton  onClick={()=> auth.signOut()}  text="Se Connecter" ></MainButton>
+                        <MainButton onClick={this.handelSignInWithGoogle} text="Se Connecter avec" isGoogleSignIn />
+                    <div/>
             </div>
           
         </form>

@@ -1,5 +1,5 @@
 import React, {createContext, useEffect, useState } from "react";
-import { auth, createUserProfileDocument } from "./firebase.utils";
+import { auth, createUserProfileDocument ,firestore} from "./firebase.utils";
 
 export const UserContext = createContext({ user: null });
 function UserProvider(props){
@@ -7,15 +7,13 @@ function UserProvider(props){
     useEffect( ()=>{
         auth.onAuthStateChanged(async userAuth => {
               if(userAuth){
-                const userRef = await  createUserProfileDocument(userAuth)
+                const userRef = firestore.doc(`users/${userAuth.uid}`)
                 userRef.onSnapshot(snap => {
                     setuser({currentUser :{
                       id : snap.id,
                     ...snap.data()
                   }})
                 })
-              }else {
-                setuser(userAuth)
               } 
             }) 
       },[])

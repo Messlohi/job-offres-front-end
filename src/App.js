@@ -1,18 +1,23 @@
-import { Route } from 'react-router';
+import { Route,Switch } from 'react-router';
 import { useState ,useEffect} from 'react';
 import './App.css';
+import {React,useContext} from 'react'
 import Header from './components/header/header.component';
 import Create_offre from './components/offre/Create_offre';
+import OffreDetails from './components/offre/OffreDetails';
 import OffresPage from './components/offre/OffresPage'; 
-import OffreDetails from './components/offre/OffreDetails'; 
 import MainPage from './pages/main_page/main_page.component';
 import SingInSingUp from './pages/signin_singup/signin_singup';
-// import {updateUser} from './api/api.users'
-import {currUserContent} from './api/api.users'
+import ChatPage from './pages/chat_page/ChatPage';
+import  UserProvider  from  './firebase/Provider';
+
+
 import {auth,createUserProfileDocument} from './firebase/firebase.utils';
-import UserProvider from './firebase/Provider';
-function App() {
-    const [currentUser ,setCurrentUser] = useState({}); 
+
+
+ function App() {
+
+    const [currentUser ,setCurrentUser] = useState({});
     var userAuthGlobal = null;
     useEffect( ()=>{
       auth.onAuthStateChanged(async userAuth => {
@@ -26,23 +31,34 @@ function App() {
               })
             }else {
               setCurrentUser(userAuth)
-            } 
-          }) 
+
+            }
+          })
+
     },[userAuthGlobal])
-    //console.log(auth.currentUser);
+
+
     return ( 
-        <UserProvider>
+        <div>
+          <UserProvider>
             <Header/>
             <Route path='/' exact component={MainPage} />
             <div className="container  body-content content-wrapper"> 
+            <Switch>
                 <Route path='/offres'exact component={OffresPage} />
+                <Route path='/chat' exact component={ChatPage}/>
                 <Route path='/signin'exact component={SingInSingUp} />
                 <Route path='/signout'exact component={SingInSingUp} />
                 <Route  path='/offres/details/:id' component={OffreDetails} /> 
                 <Route exact path='/offres/add'component={Create_offre} />
-                <Route  path='/offres/edit/:id'component={Create_offre} />
-             </div>
-        </UserProvider>
+                <Route  path='/offres/edit/:id'component={Create_offre} /> 
+            </Switch>
+            </div>
+            </UserProvider>
+        </div>
     );
-} 
+}
+
 export default App;
+
+

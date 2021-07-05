@@ -13,25 +13,25 @@ class  MainPage extends React.Component {
         this.state = {
             sections : [
                 {
-                  title: 'hats',
-                  imageUrl: 'aluminuim.jpg',
+                  title: 'Bâtiment',
+                  imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
                   id: 1,
                   linkUrl: 'shop/hats'
                 },
                 {
-                  title: 'jackets',
+                  title: 'Camera de surveillance',
                   imageUrl: 'https://i.ibb.co/px2tCc3/jackets.png',
                   id: 2,
                   linkUrl: 'shop/jackets'
                 },
                 {
-                  title: 'sneakers',
+                  title: 'Électricien',
                   imageUrl: 'https://i.ibb.co/0jqHpnp/sneakers.png',
                   id: 3,
                   linkUrl: 'shop/sneakers'
                 },
                 {
-                  title: 'womens',
+                  title: 'électroménagers',
                   imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
                   id: 4,
                   linkUrl: 'shop/womens'
@@ -64,7 +64,6 @@ class  MainPage extends React.Component {
                                 <option value="1783" data-parent-level="1">Construction BTP</option>
                                 <option value="1577" data-parent-level="1">Électricien</option>
                                 <option value="1588" data-parent-level="1">électroménagers</option>
-                                <option value="1581" data-parent-level="1">Forgeron</option>
                                 <option value="1586" data-parent-level="1">Installation de climatiseur</option>
                                 <option value="1591" data-parent-level="1">Jardinier</option>
                                 <option value="1596" data-parent-level="1">Mécanique</option>
@@ -105,6 +104,8 @@ class  MainPage extends React.Component {
                     </div>
                 </section>
                 <section id="sec3">
+                    <h1 className="section-title">Rrechercher par Métier</h1>
+                    <div className="section-content">
                     {
                         this.state.sections.map(({id,...otherOptions})=> {
                             return(
@@ -112,6 +113,8 @@ class  MainPage extends React.Component {
                             )
                         })
                     }
+                    </div>
+                 
                 </section>
                 <section id="sec4">D</section>
             </div>

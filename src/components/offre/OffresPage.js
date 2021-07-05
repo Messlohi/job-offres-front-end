@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState ,useContext} from 'react'; 
+import { UserContext } from '../../providers/UserContext';
 import './offrePage.css'
 import {deleteOffre, getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';
@@ -8,8 +9,10 @@ function OffresPage({match}) {
     const [offres,setOffres]=useState([]);
     const [categories,setcategories]=useState([]); 
     const [selectedCateg,setselectedCateg]=useState(0);
+    const user = useContext(UserContext)
   
     useEffect(() => {
+        console.log(user)
         fetchCategos();
         if(selectedCateg===0){
             fetchOffres();

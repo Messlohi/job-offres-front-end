@@ -3,9 +3,12 @@ import React from 'react'
 import './main_button.styles.scss'
 
 
-const MainButton = ({text,...otherProps}) => {
+
+
+
+const MainButton = ({text,isGoogleSignIn,...otherProps}) => {
     return(
-        <button className="btn btn-orange" {...otherProps} >{text}</button>
+        <button className= {`${isGoogleSignIn? 'google-sign-in':'' } btn btn-orange`} {...otherProps} >{text} {isGoogleSignIn? <i class="fab fa-google"></i> : null} </button>
     )
 }
 

@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'; 
 import { getCategories } from '../../api/api.categories';
 import { getOffreById, updateOffre } from '../../api/api.offres';
-import { UserContext } from '../../firebase/Provider';
+import { UserContext } from '../../firebase/Provider';   
+
   
 function Create_offre({props,match}) {	
     const [offre,setOffre]=useState({idService:0,nom:"",descri:"",categorie:"",address:"",prix:"",imgs:[]});
@@ -9,6 +10,7 @@ function Create_offre({props,match}) {
     const id=match.params? match.params.id:0;
     const user=useContext(UserContext);  
     useEffect(() => {
+        console.log(user)
        getCategories().then((result) => {
            setcategories(result.data);
        }).catch((err) => {

@@ -1,31 +1,47 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useContext, useEffect, useState } from 'react'; 
 import { getCategories } from '../../api/api.categories';
+import { getOffreById, updateOffre } from '../../api/api.offres';
+import { UserContext } from '../../firebase/Provider';
   
-function Create_offre(props) {	
+function Create_offre({props,match}) {	
     const [offre,setOffre]=useState({idService:0,nom:"",descri:"",categorie:"",address:"",prix:"",imgs:[]});
     const [categories,setcategories]=useState([]); 
+    const id=match.params? match.params.id:0;
+    const user=useContext(UserContext);  
     useEffect(() => {
        getCategories().then((result) => {
            setcategories(result.data);
        }).catch((err) => {
            alert(err)
        });
+       if(id){
+            getOffreById(id)
+            .then((result) => setOffre(result.data))
+            .catch((err) => setOffre(err.data));
+       }
     }, []);
     function myChangeHandler (event) {
         let name = event.target.name;
         let val = event.target.value;
         setOffre({...offre, [name] : val});	
        // console.log(offre);	 
-    }
+    } 
+
     function onFileChangeHandler (e){
-        e.preventDefault(); 
-        const files = Array.from(e.target.files)
-        console.log("files",files); 
+        // e.preventDefault(); 
+        // files= Array.from(e.target.files)
+        // console.log("adding files",files);  
+    };
+    function addOffer() { 
         const imgs=offre.imgs;
-        imgs.push(files[0].name)
+        const file=document.getElementById("file").files[0];  
+        if(!file) {
+            alert("veuillez choisir une image");
+            return;
+        }
+        imgs.push(file.name)
         setOffre({...offre, imgs : imgs});	
-        console.log(offre,"offffff");
-    
+        
         const formData = new FormData();
         formData.append('nom', offre.nom);
         formData.append('descri', offre.descri);
@@ -33,20 +49,48 @@ function Create_offre(props) {
         formData.append('descri', offre.descri);
         formData.append('prix', offre.prix); 
         formData.append('categorie', offre.categorie); 
-        formData.append('file', files[0]);
-        fetch('http://localhost:8080/offres', {
-            method: 'post',
-            body:formData 
-        }).then(res => {
-            if(res.ok) {
-                console.log(res.data);
-                alert("File uploaded successfully.")
-            }
-        });  
-    };
-    return (
+        formData.append('creatorID', user.currentUser.id);
+        formData.append('file', file);
+        if(id===0){
+            fetch('http://localhost:8080/offres', {
+                method: 'post',
+                body:formData 
+            }).then(res => {
+                if(res.ok) {
+                    console.log(res.data);
+                    alert("File uploaded successfully.");
+                    window.location="/offres";
+                } 
+            }); 
+        }else{
+            
+            console.log("updating");
+            formData.append('idService', offre.idService);
+            updateOffre(formData)
+                .then(r=>{
+                    console.log(r);
+                    alert("modifié");
+                    window.location="/offres";
+                })
+                .catch(err=>console.log(err))
+            // fetch('http://localhost:8080/offres'+id, {
+            //     method: 'patch',
+            //     body:formData 
+            // }).then(res => {
+            //     if(res.ok) {
+            //         console.log(res.data);
+            //         alert("File uploaded successfully.");
+            //         window.location="/offres";
+            //     } 
+                
+            //     console.log("updating");
+            // })
+            // .catch(err=>console.log(err));
+        }
+    }
+    return ( 
         <div>
-            <form className="form-horizontal">
+            <div className="form-horizontal">
                 <hr />
                 <div className="form-group">
                     <label className="control-label text-left col-md-2">Service</label>  
@@ -83,13 +127,13 @@ function Create_offre(props) {
                 <div className="form-group">
                     <label className="control-label text-left col-md-2">Image</label>  
                     <div className="col-md-8 col-lg-4 px-0"> 
-                         <input type="file" className="form-control" name="file" onChange={onFileChangeHandler}/>
+                         <input type="file" className="form-control"  id="file" name="file" onChange={onFileChangeHandler}/>
                   </div>
                 </div> 
                 <div id="divContainer" className="w-50" >
-                    <input type="submit" value="Créer"  onChange={onFileChangeHandler} name="imgs" className="btn btn-lg btn-primary px-5 ml-1" />
+                    <input type="submit" value="Créer"  onClick={()=>addOffer()} name="imgs" className="btn btn-lg btn-primary px-5 ml-1" />
                 </div>
-            </form>  
+            </div>  
         </div>
     )
 }

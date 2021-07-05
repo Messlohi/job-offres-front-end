@@ -16,8 +16,8 @@ export async function addOffre(offre){
     );
     return response;
 }
-export async function updateOffre(id,offre){
-    const response=await axios.post('http://localhost:8080/offres/'+id,offre);
+export async function updateOffre(offre){
+    const response=await axios.patch('http://localhost:8080/offres/',offre);
     return response;
 }
 export async function deleteOffre(id){

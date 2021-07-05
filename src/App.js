@@ -38,8 +38,9 @@ function App() {
                 <Route path='/offres'exact component={OffresPage} />
                 <Route path='/signin'exact component={SingInSingUp} />
                 <Route path='/signout'exact component={SingInSingUp} />
-                <Route  path='/offres/details/:id' component={OffreDetails} />
+                <Route  path='/offres/details/:id' component={OffreDetails} /> 
                 <Route exact path='/offres/add'component={Create_offre} />
+                <Route  path='/offres/edit/:id'component={Create_offre} />
              </div>
         </UserProvider>
     );

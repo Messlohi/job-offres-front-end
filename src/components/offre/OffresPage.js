@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
 import './offrePage.css'
-import {getOffres} from '../../api/api.offres';
+import {deleteOffre, getOffres} from '../../api/api.offres';
 import OffreCard from './OffreCard';
 import { getCategories } from '../../api/api.categories';
 import { Link } from 'react-router-dom'; 
@@ -33,6 +33,10 @@ function OffresPage({match}) {
         getOffres()
         .then(d=> setOffres(d.data))
         .catch(e=> console.log(e));
+    }
+    function handlDeleteOffre(id) {
+        var flag=window.confirm("voulez vous supprimer cette offre?");
+        if(flag) deleteOffre(id).then(r=>setOffres(r.data))
     }
     return ( 
         <div className="row">
@@ -71,14 +75,14 @@ function OffresPage({match}) {
                 </div>
             <div className="col-md-9 col-lg-9 col-xs-12 white-bg my-1 border rounded py-2">
                 <div>
-                    <div style={{"display": "flex","justify-content": "space-between"}}> 
-                        <h3 class="">Annonces</h3>
+                    <div style={{"display": "flex","justifyContent": "space-between"}}> 
+                        <h3 className="">Annonces</h3>
                         <div>
                             <Link to="/offres/add" className="btn btn-orange">Créer un offre</Link>
                         </div>
                     </div>
                     <div>
-                        {offres.map(offre=> <div className="offre-container" key={offre.idService}><OffreCard offre={offre}/></div>)}
+                        {offres.map(offre=> <div className="offre-container" key={offre.idService}><OffreCard offre={offre} handlDeleteOffre={handlDeleteOffre}/></div>)}
                     </div>
                 </div>
             </div>

@@ -24,4 +24,8 @@ export async function deleteUser(id){
     return response;
 }
   
-export const currUserContent = createContext({ user: null });
+export async function getUserStatis(id){
+    const response=await axios.get('http://localhost:8080/users/statistics/'+id);
+    return response;
+}
+// export const currUserContent = createContext({ user: null });

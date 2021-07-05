@@ -5,15 +5,15 @@ import RateComponent from '../common/rate';
 import { addRating, getRatings } from '../../api/api.ratings'; 
 import { UserContext } from '../../firebase/Provider';
 import RateComment from '../common/RateComment';
-import User_info from './User_info';
+import UserInfo from './UserInfo';
 
 function OffreDetails({match}) {
     const [offre, setoffre] = useState({}); 
     const [comment, setcomment] = useState("");
     const [rate, setrate] = useState(0);
-    const [comments, setcomments] = useState([]) 
+    const [comments, setcomments] = useState([]) ;
     const user=useContext(UserContext); 
-  
+    // console.log(user);
     const id=match.params.id; 
     useEffect(() => { 
         getOffreById(id)
@@ -22,7 +22,7 @@ function OffreDetails({match}) {
     }, [id]); 
     
     useEffect( ()=>{
-        getRatings()
+        getRatings(id)
             .then(r=>setcomments(r.data))
             .catch(err=>console.log(err));
       },[])   
@@ -48,7 +48,7 @@ function OffreDetails({match}) {
             .catch(err=>console.log("sendRating:",err))
         setrate(0);
         setcomment("");
-    }
+    } 
     return ( 
         <div>
             <div className="row " id="details-container">
@@ -84,7 +84,7 @@ function OffreDetails({match}) {
                 <div className="col-md-4 col-xs-12 col-sm-12  ">
                     <div className="bg-light border p-2 h-50">
                         <div>
-                           <User_info/>
+                           <UserInfo creator={offre.creator}/>
                         </div>
                     </div>
                 </div>

@@ -87,15 +87,15 @@ function  MainPage(props) {
                                 <option value="1600" data-parent-level="1">Casablanca</option>
                                 <option value="1778" data-parent-level="1">Dakhela</option><option value="1775" data-parent-level="1">Esssaouira</option><option value="1603" data-parent-level="1">Fes</option><option value="1604" data-parent-level="1">Kenitra</option><option value="1777" data-parent-level="1">Khemisat</option><option value="1782" data-parent-level="1">khenifra</option><option value="1774" data-parent-level="1">Laâyone</option><option value="1772" data-parent-level="1">laâyoune</option><option value="1598" data-parent-level="1">Marrakech</option><option value="1771" data-parent-level="1">Meknes</option><option value="1605" data-parent-level="1">Mohammedia</option><option value="1773" data-parent-level="1">oujda</option><option value="1599" data-parent-level="1">Rabat</option><option value="1602" data-parent-level="1">Tanger</option><option value="1781" data-parent-level="1">temara</option><option value="1776" data-parent-level="1">Tétouan</option><option value="1779" data-parent-level="1">Tiznit</option>
                             </select>
-                            <button type="button" >Rechercer</button>
+                            <button type="button" style={{cursor:'pointer'}} >Rechercer</button>
                         </div>
                     </div>
                 </section>
                 <section id="sec2">
-                <h1>Bienvenue chez BRICOLE</h1>
+                <h1>Bienvenue chez BRICOLEUR</h1>
                     <div className="content container"> 
                     <div className="text_intro">
-                        <h2>Qu'est-ce que BRICOLE?</h2>
+                        <h2>Qu'est-ce que BRICOLEUR?</h2>
                         <p>BRICOLE est une plate-forme qui offre un espace aux artisans de toutes formes et professions pour afficher leurs services, ainsi qu’au client pour trouver un artisan via Bricom en un clic sans se soucier de la navigation et de la recherche.
                         <br/> <br/>
                         Pour référence, le site BRICOLE est 100% gratuit et sans aucune commission, ni de la part de l’artisan, ni du client.
@@ -107,7 +107,7 @@ function  MainPage(props) {
                     </div>
                 </section>
                 <section id="sec3">
-                    <h1 className="section-title">Rrechercher par Métier</h1>
+                    <h1 className="section-title">Rechercher par métier</h1>
                     <div className="section-content" style={{"position": "relative"}}>
                     {
                         sections.map((category,i)=> {

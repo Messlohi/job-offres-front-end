@@ -4,54 +4,80 @@ import "./chatList.css";
 import ChatListItems from "./ChatListItems";
 import { firestore ,database } from "../../../firebase/firebase.utils";
 import { UserContext } from "../../../firebase/Provider";
-
-
-
-
-const  ChatList =(props) =>  {
-  const {currentUser} = useContext(UserContext)
-  const  [allChatUsers, setAllChatUsers] = useState([]);
-  const [fertchIn,setFetchIn] = useState(false);
-
-  
+import { getUserById } from "../../../api/api.users";
 
 
 const getAllChatUser =  (uid) => {
-    return new Promise(async (resolve,reject)=> {
-        var allChatUsers = [];
-        await database.ref(`all_users/${uid}/chats`).once('value',async (snap)=> {
-          if(snap.exists()){
-            let tabUsersKeys = Object.keys(snap.val());
-          await tabUsersKeys.forEach(async (userKey,i,tab) => {
-              const userRef = firestore.doc(`users/${userKey}`)
-              const userObject = await userRef.get();
-              const user = userObject.data()
-              allChatUsers.push({
-                id : allChatUsers.length+1,
-                name : user.displayName,
-                active : true,
-                isOnline: false
-              })  
-            })
-          }
-           resolve(allChatUsers);
-    })
-   
-  
+  return new Promise(async (resolve,reject)=> {
+      var allChatUsers = [];
+      await database.ref(`all_users/${uid}/chats`).once('value',async (snap)=> {
+        if(snap.exists()){
+          let tabUsersKeys = Object.keys(snap.val());
+        await tabUsersKeys.forEach(async (userKey,i,tab) => {
+          let user = {};
+         await  getUserById(userKey).then(userFetched => user= userFetched.data)
+            allChatUsers.push({
+              id : allChatUsers.length+1,
+              name : user.nomComplet,
+              active : true,
+              isOnline: false
+            })  
+          })
+        }
+         resolve(allChatUsers);
   })
-  
-  }
-  
+})
+}
+
+
+
+  const   setUpChatKey = async (idSender,idRecvier) => {
+        const senderChatRef =  database.ref(`all_users/${idSender}`).child("chats").child(idRecvier)
+        const receiverChatRef =  database.ref(`all_users/${idRecvier}`).child("chats").child(idSender)
+        let chatKey="ssss";
+        await senderChatRef.once('value',(snap)=> {
+            if(!snap.exists()){
+                chatKey = database.ref('all_chats').push().key
+                senderChatRef.set(chatKey);
+                receiverChatRef.set(chatKey);
+            }else {
+              chatKey = snap.val();
+            }
+        })
+        return chatKey;
+      }
+      
+      const   sendMessage = async (idSender, idReceiver,message) => {
+        if(idSender=="" || idReceiver=="") return;
+        const chatKey = await setUpChatKey(idSender,idReceiver);
+        const createdAt = new Date();
+        const chatRef = database.ref(`all_chats/${chatKey}`)
+        const messageKey = chatRef.push().key
+        chatRef.child(messageKey).set({
+            message,
+            createdAt : createdAt.toISOString(), 
+            idSender,
+            idReceiver,
+            messageKey,
+            vu : false
+        })
+      }
+
+
+const  ChatList =(props) =>  {
+const {currentUser} = useContext(UserContext)
+const  [allChatUsers, setAllChatUsers] = useState([]);
+const [fertchIn,setFetchIn] = useState(false);
+
+
   useEffect(async () => {
     if(currentUser != null){
-    if(allChatUsers.length==0){
-      await getAllChatUser(currentUser.id).then(chart => {
-        setAllChatUsers(chart)
-        console.log(chart)
-        setFetchIn(true)
-    })
-    }
-   
+        if(!fertchIn){
+          await getAllChatUser(currentUser.id).then(chart => {
+            setAllChatUsers(chart)
+            setFetchIn(true)
+          })
+        }
     }
   }, [currentUser,fertchIn])
 

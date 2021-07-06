@@ -4,6 +4,7 @@ import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/storage'
 import Person from '../assets/person.png'
+import { getUserById } from '../api/api.users';
 
 
 import {addUser} from '../api/api.users';
@@ -46,17 +47,21 @@ provider.setCustomParameters({ prompt: 'select_account' });
 export const singInWithGoogle = async () => auth.signInWithPopup(provider);
 
 const loadFormData = async (userAuth,addtion)=> {
+    console.log(userAuth)
+    console.log(addtion)
     const {email,uid } = userAuth;
-    const {displayName, tel, addr} = addtion
-    console.log(displayName)
-    console.log(email)
+    const { tel, addr} = addtion
+    let displayName ="";
+    if(userAuth.displayName==null)  {
+        displayName = addtion.displayName
+    }else{displayName = userAuth.displayName}
     const formData = new FormData();
     formData.append('idUser', '1');
     formData.append('nomComplet', displayName);
     formData.append('email', email);
     formData.append('password', '');
-    formData.append('tel', tel); 
-    formData.append('adress', addr); 
+    formData.append('tel', tel?tel:"-");
+    formData.append('adress', addr?addr:"-");
     formData.append('idFirebase', uid);
     formData.append('specialite', '-');
     return formData;
@@ -64,11 +69,11 @@ const loadFormData = async (userAuth,addtion)=> {
 
 
 export const createUserProfileDocument = async(userAuth, additionalData,history) => {
-    if (!userAuth) return;
+    if (!userAuth ) return;
     const userRef = firestore.doc(`users/${userAuth.uid}`)
     const snapShot = await userRef.get();
-    if (!snapShot.exists) {
-        const { email } = userAuth;
+    if(!snapShot.exists){
+        const { displayName,email } = userAuth;
         //Adding user to SQL database
         if(additionalData!= null ){
             let formData = await loadFormData(userAuth,additionalData);
@@ -78,20 +83,19 @@ export const createUserProfileDocument = async(userAuth, additionalData,history)
             const createdAt = new Date();
             try {
                 await userRef.set({
+                    displayName,
                     email,
                     createdAt,
                     ...additionalData
                 })
-                if(history!=null)
-                history.push('/profile')
+              
             } catch (error) {
                 window.alert("erreur in saving user " + error)
             }
         }
-    }else {
-        if(history!=null)
-        history.push('/')
     }
+       
+    
     return userRef;
 }
 

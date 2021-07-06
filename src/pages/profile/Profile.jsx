@@ -1,4 +1,5 @@
 import React ,{useState,useEffect,useContext, useRef} from 'react'
+import { useParams,withRouter } from 'react-router';
 
 import { firestore, storage } from '../../firebase/firebase.utils'
 import { UserContext } from '../../firebase/Provider';
@@ -6,7 +7,7 @@ import { getUserById,updateUser } from '../../api/api.users';
 
 import './Profile.scss'
 
-const CardInfo = ({onClickEdit,profileInfo}) => 
+const CardInfo = ({onClickEdit,profileInfo,idExist}) => 
 {
     return(
         <div className="card-body">
@@ -55,11 +56,15 @@ const CardInfo = ({onClickEdit,profileInfo}) =>
                 </div>
             </div>
             <hr />
+            {!idExist &&
             <div className="row">
-                <div className="col-sm-12">
-                    <a className="btn btn-info " onClick={(e)=>onClickEdit(e)} value="edit" href="#">Edit</a>
-                </div>
-            </div>    
+            <div className="col-sm-12">
+                <a className="btn btn-info " onClick={(e)=>onClickEdit(e)} value="edit" href="#">Edit</a>
+            </div>
+              </div> 
+            
+            }
+               
         </div>
     )
 }
@@ -139,10 +144,13 @@ const EditCard = ({HandelOnChage,onClickSave,profileInfo})=> {
 }
 
 
-const Profile = () => {
+const Profile = ({history}) => {
 const {currentUser} = useContext(UserContext);
 const [editButtonClicked , setEditButtonClicked] = useState(false);
 const [profileInfo ,setProfileInfo] = useState({});
+const [usetId,setUserId] = useState("");
+const {id} = useParams();
+var idExist =false;
 const refImg = useRef(null)
 
 
@@ -154,7 +162,10 @@ const refImg = useRef(null)
         //  const userData = userRef.data()
         //  console.log(userData)
          //setProfileInfo(userData)
-         getUserById(currentUser.id).then(usera => {
+        let usetIdA = id!=null?id:currentUser.id
+        idExist = id==null
+        setUserId(usetIdA)
+         getUserById(usetIdA).then(usera => {
              let user = usera.data
             let userFetched = {
                 displayName:user.nomComplet,
@@ -173,6 +184,10 @@ const refImg = useRef(null)
          
      }
  }, [currentUser])
+
+ const onClikMessage = () => {
+        history.push(`../chat/${currentUser.id}...${usetId}`)
+}
 
 
 const HandelOnChage = (event)=> {
@@ -264,8 +279,14 @@ return(
                         <div className="d-flex flex-column align-items-center text-center">
                             <img ref={refImg} src={profileInfo.img ? profileInfo.img : "https://saccade.ca/img/autiste-apropos.svg"} alt="Admin" className="rounded-circle" width="150"/>
                             <div style={{display:'flex',gap:'10px'}}>
-                            <span onClick={removeImg}><i class="fas fa-trash text-danger" style={{cursor:'pointer'}}></i></span>
-                            <label  for="choseImg"  style={{cursor:'pointer'}}><i class="fas fa-images text-primary" ></i></label>
+                            {id == null?
+                            <>
+                              <span onClick={removeImg}><i class="fas fa-trash text-danger" style={{cursor:'pointer'}}></i></span>
+                              <label  for="choseImg"  style={{cursor:'pointer'}}><i class="fas fa-file-image text-primary" ></i></label>
+                              </>
+                              : null
+                            }
+                          
                             </div>
                             <input type="file" 
                                 accept="image/gif, image/jpeg, image/png"
@@ -275,7 +296,7 @@ return(
                                 <h4>{profileInfo.displayName}</h4>
                                 {/* <p className="text-secondary mb-1">{profileInfo.desc ? profileInfo.desc : "description"}</p> */}
                                 <br/>
-                                <button className="btn btn-outline-primary">Message</button>
+                                <button className="btn btn-outline-primary" onClick={()=> onClikMessage()}>Message</button>
                             </div>
                         </div>
                         </div>
@@ -309,6 +330,7 @@ return(
                     <div className="card mb-3">
                       {editButtonClicked==false? 
                       <CardInfo
+                      idExist
                         profileInfo={profileInfo}
                        onClickEdit={onClickEdit}/>
                        :<EditCard 
@@ -325,4 +347,4 @@ return(
 
 }
 
-export default Profile;
+export default withRouter(Profile);

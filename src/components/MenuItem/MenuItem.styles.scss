@@ -1,3 +1,4 @@
+$base-color :#f58936;
 .menu-item {
   position: relative;
     height: 200px;
@@ -6,7 +7,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    border: 5px solid #f7f7f7;
+    border: 5px solid $base-color;
     margin: 0 7.5px 15px;
     overflow: hidden;
 
@@ -42,28 +43,23 @@
       background-size: cover;
     }
   
-    .content {
+    .content-catego {
       position: absolute;
       height: 90px;
       padding: 0 25px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      text-align: center;
       border: 1px solid black;
       background-color: white;
       opacity: .7;
   
       .title {
+        margin-top: 10px;
+        align-self: center;
         font-weight: bold;
-        margin-bottom: 6px;
         font-size: 22px;
         color: #4a4a4a;
       }
   
-      .subtitle {
-        font-weight: lighter;
-        font-size: 16px;
-      }
+      
     }
   }

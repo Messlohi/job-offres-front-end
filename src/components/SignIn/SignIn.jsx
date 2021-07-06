@@ -38,10 +38,7 @@ class SignIn extends React.Component
     }
 
     handelSignInWithGoogle = async (event) => {
-        singInWithGoogle().then(snap=> {
-            this.props.history.push('/')
-        })
-      
+        singInWithGoogle()
     }
 
     handelChange = event => {

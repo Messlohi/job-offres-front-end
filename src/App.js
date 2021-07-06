@@ -33,11 +33,13 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
             }else {
               setCurrentUser(userAuth)
 
+
             }
           })
           return () => {
             unsubscribeFromAuth();
           }
+
     },[userAuthGlobal])
     return ( 
         <div>
@@ -47,13 +49,16 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
             <div className="container  body-content content-wrapper"> 
             <Switch>
                 <Route path='/offres'exact component={OffresPage} />
-                <Route path='/chat' exact component={ChatPage}/>
-                <Route path='/profile' exact component={currentUser==null?MainPage:Profile}/>
-                {currentUser?  <Redirect to='/'/> :<Route path='/signin'exact component={SingInSingUp} />}
-                {currentUser?  <Redirect to='/'/> :<Route path='/signout'exact component={SingInSingUp} />}
+                <Route path='/chat/' exact component={ChatPage}/>
+                <Route path='/chat/:id/' exact component={ChatPage}/>
+                <Route path='/profile/' exact component={Profile}/>
+                <Route path='/profile/:id' exact component={Profile}/>
                 <Route  path='/offres/details/:id' component={OffreDetails} /> 
                 <Route exact path='/offres/add'component={Create_offre} />
                 <Route  path='/offres/edit/:id'component={Create_offre} /> 
+                {currentUser?  <Redirect to='/'/> :<Route path='/signin'exact component={SingInSingUp} />}
+                {currentUser?  <Redirect to='/'/> :<Route path='/signout'exact component={SingInSingUp} />}
+
             </Switch>
             </div>
             </UserProvider>

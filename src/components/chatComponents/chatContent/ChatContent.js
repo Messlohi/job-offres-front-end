@@ -1,62 +1,15 @@
 import React, { Component, useState, createRef, useEffect } from "react";
-
+import { database } from "../../../firebase/firebase.utils";
 import "./chatContent.css";
 import Avatar from "../chatList/Avatar";
 import ChatItem from "./ChatItem";
+import { getUserById } from "../../../api/api.users";
 
 export default class ChatContent extends Component {
-
+  
   messagesEndRef = createRef(null);
   chatItms = [
-    {
-      key: 1,
-      image:
-        "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-      type: "",
-      msg: "Hi Tim, How are you?",
-    },
-    {
-      key: 2,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "I am fine.",
-    },
-    {
-      key: 3,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "What about you?",
-    },
-    {
-      key: 4,
-      image:
-        "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-      type: "",
-      msg: "Awesome these days.",
-    },
-    {
-      key: 5,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "Finally. What's the plan?",
-    },
-    {
-      key: 6,
-      image:
-        "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-      type: "",
-      msg: "what plan mate?",
-    },
-    {
-      key: 7,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU",
-      type: "other",
-      msg: "I'm taliking about the tutorial",
-    },
+ 
   ];
 
   constructor(props) {
@@ -64,25 +17,103 @@ export default class ChatContent extends Component {
     this.state = {
       chat: this.chatItms,
       msg: "",
+      displayName:"",
+      img :"",
+      idSender :"",
+      idReceiver :""
     };
   }
+
+  setUpChatKey = async (idSender,idRecvier) => {
+    const senderChatRef =  database.ref(`all_users/${idSender}`).child("chats").child(idRecvier)
+    const receiverChatRef =  database.ref(`all_users/${idRecvier}`).child("chats").child(idSender)
+    let chatKey="ssss";
+    await senderChatRef.once('value',(snap)=> {
+        if(!snap.exists()){
+            chatKey = database.ref('all_chats').push().key
+            senderChatRef.set(chatKey);
+            receiverChatRef.set(chatKey);
+        }else {
+          chatKey = snap.val();
+        }
+    })
+    return chatKey;
+  }
+  
+     sendMessage = async (idSender, idReceiver,message) => {
+    if(idSender=="" || idReceiver=="") return;
+    const chatKey = await this.setUpChatKey(idSender,idReceiver);
+    const createdAt = new Date();
+    const chatRef = database.ref(`all_chats/${chatKey}`)
+    const messageKey = chatRef.push().key
+    chatRef.child(messageKey).set({
+        message,
+        createdAt : createdAt.toISOString(), 
+        idSender,
+        idReceiver,
+        messageKey,
+        vu : false
+    })
+  }
+
 
   scrollToBottom = () => {
     this.messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
+  getAllMesages =  (idSender ,idReceiver) => {
+    database.ref(`all_users/${idSender}/chats/${idReceiver}`).once('value',async snap=> {
+      if(snap.exists()){
+        database.ref(`all_chats/${snap.val()}`).on('child_added',snap=> {
+          console.log(snap.val())
+          let typee = ""
+          if(snap.val().idSender!=idSender) typee="other"
+          this.chatItms.push({
+            key: this.chatItms.length+1,
+            type: typee,
+            msg: snap.val().message,
+            image:
+              "https://saccade.ca/img/autiste-apropos.svg",
+          });
+          this.setState({ chat: [...this.chatItms] });
+          this.scrollToBottom();
+        })
 
-  componentDidMount() {
+      }
+
+    })
+
+  }
+
+    componentDidMount() {
+
+      let  idSender = this.props.id.split('...')[0]
+      let   idReceiver = this.props.id.split('...')[1]
+        this.setState({
+          idSender : idSender,
+          idReceiver : idReceiver
+        })
+
+        getUserById(idReceiver).then(userPayload => {
+          let user = userPayload.data;
+          this.setState({
+            displayName : user.nomComplet,
+            img : user.imgPath
+          })
+          this.getAllMesages(idSender,idReceiver)
+        })
+
     window.addEventListener("keydown", (e) => {
       if (e.keyCode == 13) {
         if (this.state.msg != "") {
-          this.chatItms.push({
-            key: 1,
-            type: "",
-            msg: this.state.msg,
-            image:
-              "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
-          });
-          this.setState({ chat: [...this.chatItms] });
+          // this.chatItms.push({
+          //   key: 1,
+          //   type: "",
+          //   msg: this.state.msg,
+          //   image:
+          //     "https://pbs.twimg.com/profile_images/1116431270697766912/-NfnQHvh_400x400.jpg",
+          // });
+          this.sendMessage(idSender,idReceiver,this.state.msg);
+         // this.setState({ chat: [...this.chatItms] });
           this.scrollToBottom();
           this.setState({ msg: "" });
         }
@@ -102,9 +133,9 @@ export default class ChatContent extends Component {
             <div className="current-chatting-user">
               <Avatar
                 isOnline="active"
-                image="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTA78Na63ws7B7EAWYgTr9BxhX_Z8oLa1nvOA&usqp=CAU"
+                image={this.state.img}
               />
-              <p>Tim Hover</p>
+              <p>{this.state.displayName}</p>
             </div>
           </div>
 

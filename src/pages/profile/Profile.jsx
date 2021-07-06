@@ -1,4 +1,5 @@
 import React ,{useState,useEffect,useContext, useRef} from 'react'
+import { useParams,withRouter } from 'react-router';
 
 import { firestore, storage } from '../../firebase/firebase.utils'
 import { UserContext } from '../../firebase/Provider';
@@ -139,10 +140,12 @@ const EditCard = ({HandelOnChage,onClickSave,profileInfo})=> {
 }
 
 
-const Profile = () => {
+const Profile = ({history}) => {
 const {currentUser} = useContext(UserContext);
 const [editButtonClicked , setEditButtonClicked] = useState(false);
 const [profileInfo ,setProfileInfo] = useState({});
+const [usetId,setUserId] = useState("");
+const {id} = useParams();
 const refImg = useRef(null)
 
 
@@ -154,7 +157,9 @@ const refImg = useRef(null)
         //  const userData = userRef.data()
         //  console.log(userData)
          //setProfileInfo(userData)
-         getUserById(currentUser.id).then(usera => {
+        let usetIdA = id!=null?id:currentUser.id
+        setUserId(usetIdA)
+         getUserById(usetIdA).then(usera => {
              let user = usera.data
             let userFetched = {
                 displayName:user.nomComplet,
@@ -173,6 +178,10 @@ const refImg = useRef(null)
          
      }
  }, [currentUser])
+
+ const onClikMessage = () => {
+        history.push(`../chat/${currentUser.id}...${usetId}`)
+}
 
 
 const HandelOnChage = (event)=> {
@@ -275,7 +284,7 @@ return(
                                 <h4>{profileInfo.displayName}</h4>
                                 {/* <p className="text-secondary mb-1">{profileInfo.desc ? profileInfo.desc : "description"}</p> */}
                                 <br/>
-                                <button className="btn btn-outline-primary">Message</button>
+                                <button className="btn btn-outline-primary" onClick={()=> onClikMessage()}>Message</button>
                             </div>
                         </div>
                         </div>
@@ -325,4 +334,4 @@ return(
 
 }
 
-export default Profile;
+export default withRouter(Profile);

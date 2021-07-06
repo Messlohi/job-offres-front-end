@@ -8,7 +8,7 @@ const MenuItem = (({category,history,match}) =>{
        <div className="background-image" 
             style={{backgroundImage:`url(${category.img})`,minWidth:`250px`  }}>
         </div>
-        <div className='content roundesd border'>
+        <div className='content-catego '>
             <h1 className='title'>{category.nomCateg.toUpperCase()}</h1>
         </div>
     </div>

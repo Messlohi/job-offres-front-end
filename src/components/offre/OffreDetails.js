@@ -50,8 +50,8 @@ function OffreDetails({match}) {
         setcomment("");
     } 
     return ( 
-        <div>
-            <div className="row " id="details-container">
+        <div className="mt-2">
+            <div className="row " id="details-container " style={{"marginTop":"10px;"}}>
                 <div className="col-md-8 col-xs-12 col-sm-12 container offre-details border p-2">
                       <div className="">
                           <div>

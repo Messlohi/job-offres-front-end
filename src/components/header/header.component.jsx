@@ -11,14 +11,14 @@ import './header.styles.scss'
 const Header = ({currentUser}) => {
     return(
         <div className="header" >
-            <nav class="navbar  navbar-light   justify-content-between" style={{"background":"#f58936"}}>
+            <nav className="navbar  navbar-light   justify-content-between" style={{"background":"#f58936"}}>
                 <a href="/" className="navbar-brand text-white"><i className="fas fa-tools"></i> BRICOLEUR</a>
                 <div className="form-inline">
                     <ul className="list-unstyled d-flex navItems" > 
                             {currentUser!=null?
                             <>
                             <li>
-                            <Link to="/profile" className=" nav-link text-white"><i class="fas fa-user-circle"></i></Link>
+                            <Link to="/profile" className=" nav-link text-white"><i className="fas fa-user-circle"></i></Link>
                             </li>
                             <li>
                                 <div className=" nav-link text-white" style={{cursor:'pointer'}} onClick={()=> {auth.signOut();window.location.replace('/')}}>Se déconnecter</div>

@@ -6,6 +6,8 @@ import { UserContext } from '../../firebase/Provider';
 import { getUserById,updateUser } from '../../api/api.users';
 
 import './Profile.scss'
+import { deleteOffre, getOffres } from '../../api/api.offres';
+import OffreCard from '../../components/offre/OffreCard';
 
 const CardInfo = ({onClickEdit,profileInfo,idExist}) => 
 {
@@ -56,13 +58,13 @@ const CardInfo = ({onClickEdit,profileInfo,idExist}) =>
                 </div>
             </div>
             <hr />
-            {!idExist &&
+            {!idExist? 
             <div className="row">
-            <div className="col-sm-12">
-                <a className="btn btn-info " onClick={(e)=>onClickEdit(e)} value="edit" href="#">Edit</a>
-            </div>
-              </div> 
-            
+                <div className="col-sm-12">
+                    <a className="btn btn-info " onClick={(e)=>onClickEdit(e)} value="edit" href="#">Edit</a>
+                </div>
+            </div> 
+            : null
             }
                
         </div>
@@ -149,8 +151,8 @@ const {currentUser} = useContext(UserContext);
 const [editButtonClicked , setEditButtonClicked] = useState(false);
 const [profileInfo ,setProfileInfo] = useState({});
 const [usetId,setUserId] = useState("");
+const [offres, setoffres] = useState([])
 const {id} = useParams();
-var idExist =false;
 const refImg = useRef(null)
 
 
@@ -163,9 +165,9 @@ const refImg = useRef(null)
         //  console.log(userData)
          //setProfileInfo(userData)
         let usetIdA = id!=null?id:currentUser.id
-        idExist = id==null
+        
         setUserId(usetIdA)
-         getUserById(usetIdA).then(usera => {
+        await getUserById(usetIdA).then(usera => {
              let user = usera.data
             let userFetched = {
                 displayName:user.nomComplet,
@@ -178,12 +180,16 @@ const refImg = useRef(null)
             }
             setProfileInfo(userFetched)
          })
-     
+         getOffres()
+            .then(r=>setoffres(r.data.filter(e=>e.creator.idFirebase==usetId)))
+            .catch(err=>console.log(err))
+        
      }
      return () => {
          
      }
- }, [currentUser])
+ }, [currentUser,offres])
+  
 
  const onClikMessage = () => {
         history.push(`../chat/${currentUser.id}...${usetId}`)
@@ -268,7 +274,10 @@ const onClickSave =(e) =>{
      // firestore.doc(`users/${currentUser.id}`).update(profileInfo)  
     }
 
-
+    function handlDeleteOffre(id) {
+        var flag=window.confirm("voulez vous supprimer cette offre?");
+        if(flag) deleteOffre(id).then(r=>setoffres(r.data))
+    }
 return(
     <div className="container">
         <div className="main-body">
@@ -281,8 +290,8 @@ return(
                             <div style={{display:'flex',gap:'10px'}}>
                             {id == null?
                             <>
-                              <span onClick={removeImg}><i class="fas fa-trash text-danger" style={{cursor:'pointer'}}></i></span>
-                              <label  for="choseImg"  style={{cursor:'pointer'}}><i class="fas fa-file-image text-primary" ></i></label>
+                              <span onClick={removeImg}><i className="fas fa-trash text-danger" style={{cursor:'pointer'}}></i></span>
+                              <label  for="choseImg"  style={{cursor:'pointer'}}><i className="fas fa-file-image text-primary" ></i></label>
                               </>
                               : null
                             }
@@ -330,7 +339,7 @@ return(
                     <div className="card mb-3">
                       {editButtonClicked==false? 
                       <CardInfo
-                      idExist
+                      idExist={id}
                         profileInfo={profileInfo}
                        onClickEdit={onClickEdit}/>
                        :<EditCard 
@@ -338,8 +347,18 @@ return(
                        HandelOnChage={HandelOnChage} 
                        onClickSave={onClickSave}/>}
                     </div>
+                    <div className="card mb-3">
+                        {
+                            offres.map((c)=> offres.map(offre=> 
+                                <div className="offre-container" key={offre.idService}>
+                                    <OffreCard offre={offre} handlDeleteOffre={handlDeleteOffre}  />
+                                </div>))
+                        }
+
+                    </div>
                 </div>   
             </div>
+
          
         </div>
     </div>

@@ -28,7 +28,7 @@ function OffreCard(props) {			  	//must start with an upper case letter
                             }
                         </div>
                     </div>
-                    <a href="#" className="my-0 mb-2 px-1" style={{"color":"#848282"}}><i className="fass fas-user"></i>{creator.nomComplet || "User"}</a>
+                    <a onClick={()=>props.history.push(`/profile/${creator.idFirebase}`)} href="#" className="my-0 mb-2 px-1" style={{"color":"#848282"}}><i className="fass fas-user"></i>{creator.nomComplet || "User"}</a>
                     <ul className="list-unstyled p-0  ">
                         <li className="col-md-8 pl-0 my-1">
                             <i className="fas fa-info-circle text-secondary"></i>{descri}

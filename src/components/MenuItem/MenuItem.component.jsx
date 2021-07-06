@@ -5,7 +5,7 @@ import './MenuItem.styles.scss'
 const MenuItem = (({category,history,match}) =>{
     return (
    <div onClick={()=> window.location="http://localhost:3000/offres?id="+category.idCateg} className={`menu-item`}>
-       <div className="background-image" 
+       <div className="background-image " 
             style={{backgroundImage:`url(${category.img})`,minWidth:`250px`  }}>
         </div>
         <div className='content-catego '>

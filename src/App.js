@@ -54,7 +54,7 @@ import {auth,createUserProfileDocument} from './firebase/firebase.utils';
                 <Route path='/chat/' exact component={ChatPage}/>
                 <Route path='/chat/:id/' exact component={ChatPage}/>
                 <Route path='/profile/' exact component={Profile}/>
-                <Route path='/profile/:id' exact component={Profile}/>
+                <Route path='/profile/:id'  component={Profile}/>
                 <Route  path='/offres/details/:id' component={OffreDetails} /> 
                 <Route exact path='/offres/add'component={Create_offre} />
                 <Route  path='/offres/edit/:id'component={Create_offre} /> 

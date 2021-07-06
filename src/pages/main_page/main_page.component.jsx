@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { withRouter } from 'react-router'
 import { getCategories } from '../../api/api.categories'
 import workers from '../../assets/landing2.png'
 import MenuItem from '../../components/MenuItem/MenuItem.component'
@@ -87,7 +88,7 @@ function  MainPage(props) {
                                 <option value="1600" data-parent-level="1">Casablanca</option>
                                 <option value="1778" data-parent-level="1">Dakhela</option><option value="1775" data-parent-level="1">Esssaouira</option><option value="1603" data-parent-level="1">Fes</option><option value="1604" data-parent-level="1">Kenitra</option><option value="1777" data-parent-level="1">Khemisat</option><option value="1782" data-parent-level="1">khenifra</option><option value="1774" data-parent-level="1">Laâyone</option><option value="1772" data-parent-level="1">laâyoune</option><option value="1598" data-parent-level="1">Marrakech</option><option value="1771" data-parent-level="1">Meknes</option><option value="1605" data-parent-level="1">Mohammedia</option><option value="1773" data-parent-level="1">oujda</option><option value="1599" data-parent-level="1">Rabat</option><option value="1602" data-parent-level="1">Tanger</option><option value="1781" data-parent-level="1">temara</option><option value="1776" data-parent-level="1">Tétouan</option><option value="1779" data-parent-level="1">Tiznit</option>
                             </select>
-                            <button type="button" style={{cursor:'pointer'}} >Rechercer</button>
+                            <button onClick={()=> props.history.push("/offres")} type="button" style={{cursor:'pointer'}} >Rechercer</button>
                         </div>
                     </div>
                 </section>
@@ -119,7 +120,7 @@ function  MainPage(props) {
                     </div>
                  
                 </section>
-                <section id="sec4">D</section>
+                {/* <section id="sec4">D</section> */}
             </div>
     
     
@@ -129,4 +130,4 @@ function  MainPage(props) {
     
 }
 
-export default MainPage;
+export default withRouter(MainPage);

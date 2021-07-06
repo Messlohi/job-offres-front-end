@@ -7,7 +7,7 @@ $base-color :#f58936;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    border: 5px solid $base-color;
+    // border: 5px solid $base-color;
     margin: 0 7.5px 15px;
     overflow: hidden;
 
@@ -48,7 +48,7 @@ $base-color :#f58936;
       height: 90px;
       padding: 0 25px;
       text-align: center;
-      border: 1px solid black;
+      border: 1px solid rgba(148, 145, 145, 0.452);
       background-color: white;
       opacity: .7;
   
